@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
           <Header userName={user} userPhoto=''/>
-          <div className='container mx-auto'>
+          <div className='container mx-auto m-5'>
             {children}
           </div>
       </body>
