@@ -19,8 +19,9 @@ interface Props {
 }
 
 export default function Header(props: Props) {
+    const currentPath = usePathname()
     function checkCurrentRoute(path: string): string {
-       if(path == usePathname()) return 'text-orange-400 font-semibold';
+       if(path === currentPath) return 'text-orange-400 font-semibold';
        return '';
     }
 
