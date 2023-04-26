@@ -1,7 +1,17 @@
+'use client'
 import Image from 'next/image';
-import logo from '../images/logo.jpg';
+import logo from '../../images/logo.jpg';
 import {MdOutlineExpandMore } from 'react-icons/md';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const navRoutes  = {
+  home: "/",
+  professional: '/professional',
+  client: '/client',
+  service: '/service',
+  scheduling: '/scheduling'
+}
 
 interface Props {
     userName: string,
@@ -9,6 +19,10 @@ interface Props {
 }
 
 export default function Header(props: Props) {
+    function checkCurrentRoute(path: string): string {
+       if(path == usePathname()) return 'text-orange-400 font-semibold';
+       return '';
+    }
 
     return (
         <>
@@ -17,11 +31,11 @@ export default function Header(props: Props) {
               <div className='grid grid-rows-1 grid-cols-4 items-center h-full'>
                   <Image className='w-44' src={logo} alt="Logo"/>
                   <nav className='text-zinc-100 space-x-6 font-medium'>
-                    <Link href={''} className=''>Inicio</Link>
-                    <Link href={''} className=''>Profissionais</Link>
-                    <Link href={''} className=''>Clientes</Link>
-                    <Link href={''} className=''>Serviços</Link>
-                    <Link href={''} className=''>Agendamentos</Link>
+                    <Link className={checkCurrentRoute(navRoutes.home)} href={navRoutes.home}>Inicio</Link>
+                    <Link className={checkCurrentRoute(navRoutes.professional)} href={navRoutes.professional}>Profissionais</Link>
+                    <Link className={checkCurrentRoute(navRoutes.client)} href={navRoutes.client}>Clientes</Link>
+                    <Link className={checkCurrentRoute(navRoutes.service)} href={navRoutes.service}>Serviços</Link>
+                    <Link className={checkCurrentRoute(navRoutes.scheduling)} href={navRoutes.scheduling}>Agendamentos</Link>
                   </nav>
                   
                   <div className='col-start-4 justify-end flex items-center space-x-2 text-zinc-100'> 
@@ -30,7 +44,7 @@ export default function Header(props: Props) {
                         props.userPhoto ?  
                           <Image className=" rounded-full" src={`/${props.userPhoto}`} alt="Profile" width={56} height={56}/>
                         : <div className='w-12 h-12 flex items-center justify-center bg-orange-400 rounded-full'>
-                            <span className='font-medium text-2xl'>A</span>
+                            <span className='font-medium text-2xl'>{props.userName.slice(0, 1).toUpperCase()}</span>
                           </div>
                       }
                     </div>
