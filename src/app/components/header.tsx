@@ -49,7 +49,7 @@ export default function Header(props: Props) {
                           </div>
                       }
                     </div>
-                    <span>Bem vindo, {props.userName}</span>
+                    <span>Olá, {props.userName}</span>
                     <button className="flex w-10 text-2xl" type="button">
                       <MdOutlineExpandMore/>
                     </button>
