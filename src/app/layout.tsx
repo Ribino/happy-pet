@@ -1,9 +1,7 @@
 
-import Header from './components/header'
+import Header from './components/Header'
 import './globals.css'
 import { Inter } from 'next/font/google'
-
-
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-          <Header userName={user} userPhoto=''/>
-          <div className='container mx-auto m-5'>
+          <Header userName={user} pathImage='kelly-perfil.png'/>
+          <div className='flex container mx-auto m-5'>
             {children}
           </div>
       </body>
