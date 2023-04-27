@@ -4,6 +4,7 @@ import logo from '../../images/logo.jpg';
 import {MdOutlineExpandMore } from 'react-icons/md';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { isEmpty } from 'lodash';
 
 const navRoutes  = {
   home: "/",
@@ -19,8 +20,9 @@ interface Props {
 }
 
 export default function Header(props: Props) {
-    const shouldDisplayUserImage = !!props.pathImage;
+    const shouldDisplayUserImage = !isEmpty(props.pathImage);
     const currentPath = usePathname()
+    
     function checkCurrentRoute(path: string): string {
        if(path === currentPath) return 'text-orange-400 font-semibold';
        return '';
