@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-          <Header userName={user} pathImage='kelly-perfil.png'/>
+          <Header userName={user} pathImage=''/>
           <div className='flex container mx-auto m-5'>
             {children}
           </div>

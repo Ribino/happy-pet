@@ -1,12 +1,12 @@
 import Box from "./components/Box";
 import Row from "./components/Row";
-import { TbCat, TbDog } from 'react-icons/tb';
-import Image from 'next/image';
 import Column from "./components/Column";
 import Field from "./components/Field";
 
 export default function Home() {
-  const data = [['11:00',  'kelly-perfil.png','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
+  const dataEmpty: any[] = []
+  const data = [
+                ['11:00',  'kelly-perfil.png','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
                 ['12:00', 'minicraqboqueteiro.jpg','Julio', 'Banho & Tosa Higiênica', 'Léo', 'CAT'],
                 ['11:00',  'minicraqboqueteiro.jpg','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
                 ['11:00',  'kelly-perfil.png','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
@@ -17,16 +17,15 @@ export default function Home() {
                 ['11:00',  'minicraqboqueteiro.jpg','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
                 ['11:00',  'minicraqboqueteiro.jpg','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
               ]
+  const existData = data.length > 0 
   return (
     <main className="h-screen w-screen">
-      <div className="grid xl:grid-cols-2 lg:grid-cols-1 lg:mx-4 xl:mx-20 gap-y-20 gap-x-20 mt-10 h-3/5 ">
-       <Box headerTitle="Agendamentos">
-        <p>
-            AQUI VAI TER UM CALENDARIO
-        </p>
+      <div className="grid xl:grid-cols-2 lg:grid-cols-1 lg:mx-40 xl:mx-20 gap-y-20 gap-x-20 mt-10 h-3/5 ">
+       <Box headerTitle="Agendamentos" emptyMessage="Calendario">
       </Box>
-       <Box headerTitle="Detalhes">
+       <Box headerTitle="Detalhes" emptyMessage="Selecione uma data para visualizar os detalhes">
         {
+          existData &&
           data.map( (array, index) =>
             <Row numberOfColumns={array.length} key={index} >
               <Column flexType="flex-none" applyHighlite={true}>
@@ -44,8 +43,8 @@ export default function Home() {
               <Column flexType="flex-none">
                 <Field type={array[5]}/>
               </Column>
-            </Row>
-          ) 
+            </Row>  
+          )
         }
        </Box>
       </div>
