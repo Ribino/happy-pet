@@ -32,7 +32,6 @@ export default function Field(props: Props) {
 
 
 function generateFied(type: string, value?: string, className?: string, pathImage?: string) {
-
     switch(type) {
         case FieldTypes.TEXT: 
             return <span className={`text-xs flex h-full ml-2 mr-2 justify-center items-center`}>{value}</span>

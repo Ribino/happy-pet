@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash"
 import { ReactNode } from "react"
 
 interface Props {
@@ -7,8 +8,8 @@ interface Props {
 }
 
 export default function Box(props: Props) {
-    const shouldDisplayHeader = !!props.headerTitle
-    const emptyInfo = !props.children 
+    const shouldDisplayHeader = !isEmpty(props.headerTitle)
+    const emptyInfo = isEmpty(props.children); 
     return (
         <>
             <div className="flex flex-col h-5/6">
