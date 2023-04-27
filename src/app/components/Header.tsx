@@ -15,10 +15,11 @@ const navRoutes  = {
 
 interface Props {
     userName: string,
-    userPhoto?: string
+    pathImage?: string
 }
 
 export default function Header(props: Props) {
+    const shouldDisplayUserImage = !!props.pathImage;
     const currentPath = usePathname()
     function checkCurrentRoute(path: string): string {
        if(path === currentPath) return 'text-orange-400 font-semibold';
@@ -42,10 +43,10 @@ export default function Header(props: Props) {
                   <div className='col-start-4 justify-end flex items-center space-x-2 text-zinc-100'> 
                     <div className="">
                       {
-                        props.userPhoto ?  
-                          <Image className=" rounded-full" src={`/${props.userPhoto}`} alt="Profile" width={56} height={56}/>
-                        : <div className='w-12 h-12 flex items-center justify-center bg-orange-400 rounded-full'>
-                            <span className='font-medium text-2xl'>{props.userName.slice(0, 1).toUpperCase()}</span>
+                       shouldDisplayUserImage ?  
+                          <Image className=" rounded-full w-14 h-14" src={`/${props.pathImage}`} alt="Profile" width={56} height={56}/>
+                        : <div className='w-14 h-14 flex items-center justify-center bg-orange-400 rounded-full'>
+                            <span className='font-medium text-3xl'>{props.userName.slice(0, 1).toUpperCase()}</span>
                           </div>
                       }
                     </div>
