@@ -10,16 +10,17 @@ interface Props {
 export default function Column(props: Props) {
   const flexType = props.flexType ?? "flex-1";
   return (
-    <>
+   <>
       <div
-        className={`${
-          props.applyHighlite
-            ? "bg-orange-400 text-white font-semibold"
-            : "bg-white"
+         className={`py-1.5
+         ${
+            props.applyHighlite
+               ? "bg-orange-400 text-white font-semibold"
+               : "bg-white"
         } ${flexType} ${props?.className ?? ""}`}
       >
-        {props.children}
+         {props.children}
       </div>
-    </>
+   </>
   );
 }
