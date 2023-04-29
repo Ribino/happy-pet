@@ -7,7 +7,7 @@ import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md'
 import { useState } from 'react'
 import _ from 'lodash'
 
-function forceUpdate() {
+function ForceUpdate() {
    const [value, setValue] = useState(0);
    return () => setValue(value => value + 1);
 }
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function Calendar(props: Props) {
-   const update = forceUpdate();
+   const update = ForceUpdate();
    const [selectedDate, setSelectedDate] = useState<Date>();
    
    if(props.multipleSelect && !_.isUndefined(selectedDate)) {
