@@ -69,21 +69,6 @@ abbr[title] {
   transition-duration: 100ms;
 }
 
-/* .react-calendar__tile--now {
-  background: #6f48eb33;
-  border-radius: 6px;
-  font-weight: bold;
-  color: rgb(244 170 65 / 1);
-}
-
-.react-calendar__tile--now:enabled:hover,
-.react-calendar__tile--now:enabled:focus {
-  background: #6f48eb33;
-  border-radius: 6px;
-  font-weight: bold;
-  color: rgb(244 170 65 / 1);
-} */
-
 .react-calendar__year-view__months__month:enabled:hover, 
 .react-calendar__decade-view__years__year:enabled:hover,
 .react-calendar__century-view__decades__decade:enabled:hover {
@@ -101,10 +86,6 @@ abbr[title] {
 .react-calendar__tile--hasActive:enabled:focus {
   background: rgb(244 170 65 / 1);
 }
-
-/* .react-calendar__month-view__days__day.react-calendar__tile--now {
-  color: rgb(251 146 60 / 1);
-} */
 
 .hightlightDate {
   border: 1px solid !important;
