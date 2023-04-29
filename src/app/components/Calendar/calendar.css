@@ -100,3 +100,7 @@ abbr[title] {
   border-radius: 50%;
   transition-duration: 100ms;
 }
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: rgb(244 170 65 / 0.6)
+}
