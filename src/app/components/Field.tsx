@@ -35,13 +35,13 @@ function generateFied(type: string, value?: string, className?: string, pathImag
       case FieldTypes.TEXT: 
             return <span className={`text-xs ${fieldAdjusts}`}>{value}</span>
       case FieldTypes.ICON_DOG: 
-            return <TbDog className={`text-4xl text-orange-400 ${fieldAdjusts}`}/>
+            return <TbDog className={`icon text-4xl ${fieldAdjusts} ${className}`}/>
       case FieldTypes.ICON_CAT: 
-            return <TbCat className={`text-4xl text-orange-400 ${fieldAdjusts}`}/>
+            return <TbCat className={`icon text-4xl ${fieldAdjusts} ${className}`}/>
       case FieldTypes.PROFILE:
             return  <div className="text-xs flex mx-1 y-1 justify-start items-center">               
                            {getProfileIcon(value, pathImage)}  
-                           <span className="pl-4">{value}</span>
+                           <span className="pl-4 text-left">{value}</span>
                   </div>
       default: 
             return <div className='text-red-600'> type do not exists </div>;

@@ -23,19 +23,20 @@ interface Props {
 export default function Calendar(props: Props) {
    const update = ForceUpdate();
    const [selectedDate, setSelectedDate] = useState<Date>();
+   const [selectedDates, setSelectedDates ] = useState(props.selectedDates ?? [])
    
    if(props.multipleSelect && !_.isUndefined(selectedDate)) {
-      props.selectedDates = props.selectedDates ?? [];
-      props.selectedDates.push(selectedDate)
+     
+      selectedDates.push(selectedDate)
    }
 
    function onClickDate(date:Date) {
       if(props.multipleSelect) {
-         props.selectedDates = props.selectedDates ?? [];
-         if(isIncludeDate(props.selectedDates, date)) {
+        
+         if(isIncludeDate(selectedDates, date)) {
             const momenDate = moment(date)
-            const indexOfDelete = props.selectedDates.findIndex(selectedDate => momenDate.isSame(selectedDate));
-            props.selectedDates.splice(indexOfDelete, 1);
+            const indexOfDelete = selectedDates.findIndex(selectedDate => momenDate.isSame(selectedDate));
+            selectedDates.splice(indexOfDelete, 1);
             setSelectedDate(undefined)
             update();
             return;
@@ -52,7 +53,7 @@ export default function Calendar(props: Props) {
    }
 
    function formatMonth(date: Date): string {
-      return upperCaseFirstLetter(moment(date).format('MMMM'))
+      return upperCaseFirstLetter(moment(date).format('MMM').toUpperCase())
    }
 
    function shouldHightlighDate(date: Date) {
@@ -67,7 +68,6 @@ export default function Calendar(props: Props) {
 
    function isSelectedDate(date: Date) {
       if(props.multipleSelect) {
-         const selectedDates = props.selectedDates ?? [];
          return isIncludeDate(selectedDates, date)
       }
       return moment(date).isSame(selectedDate)
