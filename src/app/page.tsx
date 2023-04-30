@@ -1,24 +1,65 @@
+'use client'
 import Box from "./components/Box";
 import Row from "./components/Row";
 import Column from "./components/Column";
 import Field from "./components/Field";
-import Button from "./components/Button";
 import Calendar from "./components/Calendar/Calendar";
+import { useState } from "react";
+
+interface data {
+   time: string,
+   pathImage: string,
+   professionalName: string,
+   service: string,
+   petName: string,
+   petType: string,
+   selected: boolean
+}  
+
+function ForceUpdate() {
+   const [value, setValue] = useState(0);
+   return () => setValue(value => value + 1);
+}
 
 export default function Home() {
+   const update = ForceUpdate()
+   const [data, setData] = useState([
+                {
+                   time: '11:00',
+                   pathImage:'kelly-perfil.png',
+                   professionalName: 'Kellinguiça', 
+                   service:'Banho & Tosa Higiênica', 
+                   petName: 'Floquinho',
+                   petType: 'DOG',
+                   selected: false
+                },
+                {
+                   time: '11:00',
+                   pathImage:'minicraqboqueteiro.jpg',
+                   professionalName: 'Julio', 
+                   service:'Banho & Tosa Higiênica', 
+                   petName: 'Leo',
+                   petType: 'CAT',
+                   selected: false
+                },
+                {
+                   time: '11:00',
+                   pathImage:'',
+                   professionalName: 'Maria Madalena dos Santos Silva', 
+                   service:'Banho & Tosa Higiênica', 
+                   petName: 'Floquinho',
+                   petType: 'DOG',
+                   selected: false
+                },
+      ])
+
+  function selectRow(index: any) {
+      data.filter((value) => value.selected).forEach(value => value.selected = false)
+      data[index].selected = !data[index].selected
+      update()
+  }
+
   const dataEmpty: any[] = []
-  const data = [
-                  ['11:00',  'kelly-perfil.png','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['12:00', 'minicraqboqueteiro.jpg','Julio', 'Banho & Tosa Higiênica', 'Léo', 'CAT'],
-                  ['11:00',  'minicraqboqueteiro.jpg','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['11:00',  'kelly-perfil.png','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['11:00',  '','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['11:00',  'minicraqboqueteiro.jpg','Maria Madalena dos Santos Silva Pinto Saurino Joao Claudio', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['11:00',  '','Maria Madalena dos Santos Silva', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['11:00',  'minicraqboqueteiro.jpg','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['11:00',  'minicraqboqueteiro.jpg','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-                  ['11:00',  'minicraqboqueteiro.jpg','Kellinguiça', 'Banho & Tosa Higiênica', 'Floquinho', 'DOG'],
-              ]
   const existData = data.length > 0 
 
 
@@ -30,7 +71,7 @@ export default function Home() {
 
    return (
       <main className="h-screen w-screen">
-         <div className="grid xl:grid-cols-5 lg:grid-cols-1 lg:mx-40 xl:mx-20 gap-y-20 gap-x-20 mt-10 h-3/6">
+         <div className="grid xl:grid-cols-5 lg:grid-cols-1 lg:mx-40 xl:mx-20 gap-y-20 gap-x-20 mt-10 xl:h-[32rem]">
          <Box headerTitle="Agendamentos" emptyMessage="Calendario" className="xl:col-span-2">
             <div className="flex flex-col justify-center items-center 2xl:mx-24 xl:mx-14 lg:mx-36">
                <select placeholder="Filtrar" className="bg-orange-400 text-white h-10 w-full mt-5 rounded-lg border border-zinc-500" >
@@ -38,28 +79,28 @@ export default function Home() {
                   <option value="A">A</option>  
                   <option value="B">B</option>
                </select>
-               <Calendar multipleSelect hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 15)]}/>
+               <Calendar hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 15)]}/>
             </div>
          </Box>
-         <Box headerTitle="Detalhes" emptyMessage="Selecione uma data para visualizar os detalhes" className="xl:col-span-3 xl:col-start-3">
+         <Box headerTitle="Detalhes" emptyMessage="Selecione uma data para visualizar os detalhes" className="xl:col-span-3 xl:col-start-3 ">
             {
                existData &&
-               data.map( (array, index) =>
-                  <Row numberOfColumns={array.length} key={index} >
+               data.map( (object, index) =>
+                  <Row numberOfColumns={dataEmpty.length} key={index} selectMode selected={object.selected} onSelected={selectRow.bind(index, index)}>
                      <Column flexType="flex-none" applyHighlite={true}>
-                        <Field type="text" value={array[0]}/>
+                        <Field type="text" value={object.time}/>
                      </Column>
                      <Column>
-                        <Field type="profile" value={array[2]} pathImage={array[1]} />
+                        <Field type="profile" pathImage={object.pathImage} value={object.professionalName} />
                      </Column>
                      <Column>
-                        <Field type="text" value={array[3]}/>
+                        <Field type="text" value={object.service}/>
                      </Column>
                      <Column>
-                        <Field type="text" value={array[4]}/>
+                        <Field type="text" value={object.petName}/>
                      </Column>
                      <Column flexType="flex-none">
-                        <Field type={array[5]}/>
+                        <Field type={object.petType} className={`${object.selected ? 'text-orange-200' : 'text-orange-400'}`}/>
                      </Column>
                   </Row>  
                )
