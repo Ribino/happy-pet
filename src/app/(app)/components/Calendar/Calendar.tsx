@@ -4,7 +4,7 @@ import './calendar.css'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import _ from 'lodash'
 
 function ForceUpdate() {
@@ -23,20 +23,20 @@ interface Props {
 export default function Calendar(props: Props) {
    const update = ForceUpdate();
    const [selectedDate, setSelectedDate] = useState<Date>();
-   const [selectedDates, setSelectedDates ] = useState(props.selectedDates ?? [])
+   const selectedDates = useRef<Date[]>(props.selectedDates ?? [])
    
    if(props.multipleSelect && !_.isUndefined(selectedDate)) {
      
-      selectedDates.push(selectedDate)
+      selectedDates.current.push(selectedDate)
    }
 
    function onClickDate(date:Date) {
       if(props.multipleSelect) {
         
-         if(isIncludeDate(selectedDates, date)) {
+         if(isIncludeDate(selectedDates.current, date)) {
             const momenDate = moment(date)
-            const indexOfDelete = selectedDates.findIndex(selectedDate => momenDate.isSame(selectedDate));
-            selectedDates.splice(indexOfDelete, 1);
+            const indexOfDelete = selectedDates.current.findIndex(selectedDate => momenDate.isSame(selectedDate));
+            selectedDates.current.splice(indexOfDelete, 1);
             setSelectedDate(undefined)
             update();
             return;
@@ -68,7 +68,7 @@ export default function Calendar(props: Props) {
 
    function isSelectedDate(date: Date) {
       if(props.multipleSelect) {
-         return isIncludeDate(selectedDates, date)
+         return isIncludeDate(selectedDates.current, date)
       }
       return moment(date).isSame(selectedDate)
    }

@@ -1,5 +1,6 @@
 import { TbCat, TbDog } from "react-icons/tb";
 import Image from 'next/image';
+import Loading from "@/app/components/Loading";
 
 interface Props {
    className?:string,

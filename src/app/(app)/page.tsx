@@ -4,9 +4,9 @@ import Row from "./components/Row";
 import Column from "./components/Column";
 import Field from "./components/Field";
 import Calendar from "./components/Calendar/Calendar";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-interface data {
+interface Data {
    time: string,
    pathImage: string,
    professionalName: string,
@@ -23,7 +23,7 @@ function ForceUpdate() {
 
 export default function Home() {
    const update = ForceUpdate()
-   const [data, setData] = useState([
+   const data = useRef<Data[]>([
                 {
                    time: '11:00',
                    pathImage:'kelly-perfil.png',
@@ -36,7 +36,7 @@ export default function Home() {
                 {
                    time: '11:00',
                    pathImage:'minicraqboqueteiro.jpg',
-                   professionalName: 'Julio', 
+                   professionalName: 'Julio Almeida', 
                    service:'Banho & Tosa Higiênica', 
                    petName: 'Leo',
                    petType: 'CAT',
@@ -54,13 +54,13 @@ export default function Home() {
       ])
 
   function selectRow(index: any) {
-      data.filter((value) => value.selected).forEach(value => value.selected = false)
-      data[index].selected = !data[index].selected
+      data.current.filter((value) => value.selected).forEach(value => value.selected = false)
+      data.current[index].selected = !data.current[index].selected
       update()
   }
 
   const dataEmpty: any[] = []
-  const existData = data.length > 0 
+  const existData = data.current.length > 0 
 
 
   const datesWithInfo = [
@@ -79,13 +79,13 @@ export default function Home() {
                   <option value="A">A</option>  
                   <option value="B">B</option>
                </select>
-               <Calendar hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 15)]}/>
+               <Calendar multipleSelect hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 15)]}/>
             </div>
          </Box>
          <Box headerTitle="Detalhes" emptyMessage="Selecione uma data para visualizar os detalhes" className="xl:col-span-3 xl:col-start-3 ">
             {
                existData &&
-               data.map( (object, index) =>
+               data.current.map( (object, index) =>
                   <Row numberOfColumns={dataEmpty.length} key={index} selectMode selected={object.selected} onSelected={selectRow.bind(index, index)}>
                      <Column flexType="flex-none" applyHighlite={true}>
                         <Field type="text" value={object.time}/>
