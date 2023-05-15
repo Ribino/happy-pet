@@ -1,13 +1,11 @@
 'use client'
 import Button from "@/app/components/Button"
 import InputForm from "@/app/components/InputForm"
-import { FormEvent, useRef } from 'react';
+import { useRef } from 'react';
 import Link from "next/link";
 import { useForm } from "react-hook-form"
-import { useCookies } from 'react-cookie';
-import { rest } from "lodash";
-import { redirect, useRouter } from "next/navigation";
-import { RedirectType } from "next/dist/client/components/redirect";
+import { setCookie } from 'nookies';
+import { useRouter } from "next/navigation";
 
 class DataUser {
    email?: string
@@ -18,7 +16,6 @@ export default function SignIn() {
    
    const user = useRef<DataUser>()
    const{ register, handleSubmit } = useForm()
-   const [cookies, setCookie, removeCookie] = useCookies(['user-auth']);
    const route = useRouter()
 
    async function SignIn(data: DataUser) {
@@ -32,9 +29,11 @@ export default function SignIn() {
          mode: "cors",
 
       });
-      console.log(res);
+      
       if(res.ok) {
-         res.json().then(body => setCookie("user-auth", body.access_token))
+         res.json().then(body => setCookie(undefined, "happy-pet.token", body.access_token, {
+            maxAge: 60*60*3 // 3 hours
+         }))
          route.push('/')
          return;
       }

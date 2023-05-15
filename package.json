@@ -19,6 +19,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "next": "^13.4.1-canary.2",
+    "nookies": "^2.5.2",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-calendar": "^4.2.1",
