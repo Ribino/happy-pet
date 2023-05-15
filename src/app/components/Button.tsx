@@ -31,7 +31,7 @@ export default function Button(props: Props) {
             onClick={() => {
                isRedirectButton ? redirect() : action();
             }}
-            className={`border border-zinc-100 rounded-xl h-full w-full text-sm font-semibold py-2 px-5 hover:transition ${props.className ?? ''}
+            className={`border border-zinc-100 rounded-xl h-full w-full text-sm font-semibold py-2 px-5 transition-all ${props.className ?? ''}
                   ${
                      props.secundary
                      ? "bg-white text-orange-500 hover:bg-orange-400/20 hover:text-orange-600 disabled:text-orange-500/50 disabled:border-orange-400/50 disabled:bg-white"

@@ -14,7 +14,7 @@ export default function RootLayout({children}: {
 }) {
   const user = 'Admin';
   return (
-      <html lang="pt-Br">
+      <html lang="pt-br">
          <body className={inter.className}>    
             {children}
          </body>

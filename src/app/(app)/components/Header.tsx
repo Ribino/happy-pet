@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image';
-import logo from '../../images/happy-pet-logo-header.jpg';
+import logo from '../../images/happy-pet-logo-align-left.jpg';
 import {MdOutlineExpandMore } from 'react-icons/md';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

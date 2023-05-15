@@ -23,35 +23,37 @@ function ForceUpdate() {
 
 export default function Home() {
    const update = ForceUpdate()
-   const data = useRef<Data[]>([
-                {
-                   time: '11:00',
-                   pathImage:'kelly-perfil.png',
-                   professionalName: 'Kellinguiça', 
-                   service:'Banho & Tosa Higiênica', 
-                   petName: 'Floquinho',
-                   petType: 'DOG',
-                   selected: false
-                },
-                {
-                   time: '11:00',
-                   pathImage:'minicraqboqueteiro.jpg',
-                   professionalName: 'Julio Almeida', 
-                   service:'Banho & Tosa Higiênica', 
-                   petName: 'Leo',
-                   petType: 'CAT',
-                   selected: false
-                },
-                {
-                   time: '11:00',
-                   pathImage:'',
-                   professionalName: 'Maria Madalena dos Santos Silva', 
-                   service:'Banho & Tosa Higiênica', 
-                   petName: 'Floquinho',
-                   petType: 'DOG',
-                   selected: false
-                },
-      ])
+   const data = useRef<Data[]>(
+      [
+               //  {
+               //     time: '11:00',
+               //     pathImage:'kelly-perfil.png',
+               //     professionalName: 'Kellinguiça', 
+               //     service:'Banho & Tosa Higiênica', 
+               //     petName: 'Floquinho',
+               //     petType: 'DOG',
+               //     selected: false
+               //  },
+               //  {
+               //     time: '11:00',
+               //     pathImage:'minicraqboqueteiro.jpg',
+               //     professionalName: 'Julio Almeida', 
+               //     service:'Banho & Tosa Higiênica', 
+               //     petName: 'Leo',
+               //     petType: 'CAT',
+               //     selected: false
+               //  },
+               //  {
+               //     time: '11:00',
+               //     pathImage:'',
+               //     professionalName: 'Maria Madalena dos Santos Silva', 
+               //     service:'Banho & Tosa Higiênica', 
+               //     petName: 'Floquinho',
+               //     petType: 'DOG',
+               //     selected: false
+               //  },
+      ]
+      )
 
   function selectRow(index: any) {
       data.current.filter((value) => value.selected).forEach(value => value.selected = false)
@@ -79,7 +81,7 @@ export default function Home() {
                   <option value="A">A</option>  
                   <option value="B">B</option>
                </select>
-               <Calendar multipleSelect hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 15)]}/>
+               <Calendar hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 15)]}/>
             </div>
          </Box>
          <Box headerTitle="Detalhes" emptyMessage="Selecione uma data para visualizar os detalhes" className="xl:col-span-3 xl:col-start-3 ">

@@ -1,16 +1,25 @@
 import InputForm from "@/app/components/InputForm";
-import { UseFormRegister, FieldValues } from "react-hook-form";
+import { isEmpty } from "lodash";
+import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
 
 interface Props {
-   register: UseFormRegister<FieldValues>
+   register: UseFormRegister<FieldValues>,
+   validateErrors: FieldErrors<FieldValues>
 }
 
 export default function UserData(props: Props) {
+   const cpfError =  props.validateErrors.cpf?.message?.toString()
+   const birthdayError =  props.validateErrors.birthday?.message?.toString()
+   const phoneError =  props.validateErrors.phone?.message?.toString()
+
    return (
-      <div className="grid gap-y-5">
-         <InputForm label="CPF" name="cpf" type="text" required register={props.register}/>
-         <InputForm label="Telefone" name="phone" type="phone" required register={props.register}/>
-         <InputForm label="Data Nascimento" name="birthday" type="date" required register={props.register}/>
-      </div>
+      <>
+         <h2 className="mb-10 text-orange-500 text-center"> Precisamos de alguns dados pessoais </h2>
+         <div className="flex flex-col gap-y-5">
+            <InputForm focus label="CPF" name="cpf" type="text" register={props.register} showError errorMessage={cpfError} />
+            <InputForm label="Data Nascimento" name="birthday" type="date" register={props.register} showError errorMessage={birthdayError}/>
+            <InputForm label="Telefone" name="phone" type="phone" register={props.register} showError errorMessage={phoneError}/>
+         </div>
+      </>
    )
 }
