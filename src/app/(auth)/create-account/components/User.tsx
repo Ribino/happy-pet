@@ -2,7 +2,7 @@ import InputForm from "@/app/components/InputForm";
 import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
 
 interface Props {
-   register: UseFormRegister<FieldValues>,
+   register: UseFormRegister<any>,
    validateErrors: FieldErrors<FieldValues>
 }
 

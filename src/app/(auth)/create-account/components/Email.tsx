@@ -4,11 +4,12 @@ import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
 import { object, string } from "yup";
 
 interface Props {
-   register: UseFormRegister<FieldValues>,
-   validateErrors: FieldErrors<FieldValues>
+   register: UseFormRegister<any>,
+   validateErrors: FieldErrors<FieldValues>,
+   alreadyExists: boolean
 }
 export default function Email(props: Props) {
-   const errorMessage = props.validateErrors.email?.message?.toString()
+   const errorMessage = props.alreadyExists ? "Já existe este e-mail cadastrado no sistema" :  props.validateErrors.email?.message?.toString()
    const showError = !isEmpty(errorMessage)
    return (
       <>
