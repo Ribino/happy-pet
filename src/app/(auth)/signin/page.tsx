@@ -4,6 +4,10 @@ import InputForm from "@/app/components/InputForm"
 import { FormEvent, useRef } from 'react';
 import Link from "next/link";
 import { useForm } from "react-hook-form"
+import { useCookies } from 'react-cookie';
+import { rest } from "lodash";
+import { redirect, useRouter } from "next/navigation";
+import { RedirectType } from "next/dist/client/components/redirect";
 
 class DataUser {
    email?: string
@@ -11,11 +15,30 @@ class DataUser {
 }
 
 export default function SignIn() {
+   
    const user = useRef<DataUser>()
    const{ register, handleSubmit } = useForm()
+   const [cookies, setCookie, removeCookie] = useCookies(['user-auth']);
+   const route = useRouter()
 
-   function SignIn(data: DataUser) {
-      console.log(data)
+   async function SignIn(data: DataUser) {
+   
+      const res = await fetch(`${process.env.HOST}/auth/signin`, {
+         headers: {
+            "Content-Type": "application/json"
+         },
+         method: "POST",
+         body: JSON.stringify(data),
+         mode: "cors",
+
+      });
+      console.log(res);
+      if(res.ok) {
+         res.json().then(body => setCookie("user-auth", body.access_token))
+         route.push('/')
+         return;
+      }
+      alert('Usuário não existe, crie um para usar nosso sistema')
    }
 
    return (
