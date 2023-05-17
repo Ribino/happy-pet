@@ -3,7 +3,7 @@ import { isEmpty } from "lodash";
 import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
 
 interface Props {
-   register: UseFormRegister<FieldValues>,
+   register: UseFormRegister<any>,
    validateErrors: FieldErrors<FieldValues>
 }
 

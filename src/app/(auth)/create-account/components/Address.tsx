@@ -3,7 +3,7 @@ import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
 import { TbRegistered } from "react-icons/tb";
 
 interface Props {
-   register: UseFormRegister<FieldValues>,
+   register: UseFormRegister<any>,
    validateErrors: FieldErrors<FieldValues>
 }
 
