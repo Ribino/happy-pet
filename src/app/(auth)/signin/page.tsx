@@ -46,7 +46,7 @@ export default function SignIn() {
          <form className="flex flex-col gap-y-4" onSubmit={handleSubmit(SignIn)} noValidate>
             <InputForm label="Email" name="email" type="email" register={register}/>
             <InputForm label="Senha" name="password" type="password" register={register}/>
-            <Button className="mt-6" type="submit">Entrar</Button>
+            <Button className="mt-6 !w-full" type="submit">Entrar</Button>
             <div className="flex justify-center gap-x-2 text-sm">
                <span>Não tem cadastro?</span>
                <Link className="text-orange-400 hover:text-orange-500 transition-all underline" href="/create-account">Registre-se</Link>

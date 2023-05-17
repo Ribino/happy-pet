@@ -1,6 +1,6 @@
 'use client'
 import Box from "./components/Box";
-import Row from "./components/Row";
+import Row from "./components/Row/Row";
 import Column from "./components/Column";
 import Field from "./components/Field";
 import Calendar from "./components/Calendar/Calendar";
@@ -81,14 +81,14 @@ export default function Home() {
                   <option value="A">A</option>  
                   <option value="B">B</option>
                </select>
-               <Calendar hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 15)]}/>
+               <Calendar hightlightDates={datesWithInfo} disabledDates={[new Date(2023, 4, 20)]}/>
             </div>
          </Box>
          <Box headerTitle="Detalhes" emptyMessage="Selecione uma data para visualizar os detalhes" className="xl:col-span-3 xl:col-start-3 ">
             {
                existData &&
                data.current.map( (object, index) =>
-                  <Row numberOfColumns={dataEmpty.length} key={index} selectMode selected={object.selected} onSelected={selectRow.bind(index, index)}>
+                  <Row numberOfColumns={dataEmpty.length} key={index}>
                      <Column flexType="flex-none" applyHighlite={true}>
                         <Field type="text" value={object.time}/>
                      </Column>
