@@ -4,6 +4,8 @@ import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
 import { Dispatch, SetStateAction, useState } from "react";
+import jwt from 'jwt-decode'
+import { parseCookies } from "nookies";
 
 interface Props {
    selectedPet: Pet | undefined
@@ -20,6 +22,19 @@ interface Pet {
 }
 
 export default function SelectPet(props: Props) { 
+   const emptyMessage = "Nenhum Pet cadastrado no momento"
+   
+   const cookies = parseCookies()
+
+   const user = jwt<any>(cookies['happy-pet.token'])
+
+   // const res = fetch(`${process.env.HOST}/pet/client/${user?.id}`, {
+   //    method: "GET",
+   //    headers: {
+
+   //    },
+   // })
+   
    const pets = [{
       id: 2,
       pathImage: "",
@@ -28,10 +43,12 @@ export default function SelectPet(props: Props) {
       age: "2 anos e 6 meses",
       type: "DOG",
     }]
+
+    const petsEmpty:Pet[] = [] 
   
     
-    function onSelected(index: number) {
-      props.setSelectedPet(isPetSelected(pets[index]) ? undefined : pets[index]) 
+    function onSelected(pet: Pet) {
+      props.setSelectedPet(isPetSelected(pet) ? undefined : pet) 
     }
   
     function isPetSelected(pet: Pet): boolean {
@@ -39,25 +56,25 @@ export default function SelectPet(props: Props) {
     }
    return (
       <>
-         <Box emptyMessage="Nenhum Pet cadastrado no momento" headerTitle="Meus Pets">
+         <Box emptyMessage={emptyMessage} headerTitle="Meus Pets" className="w-full">
             {
-               pets.length > 0 && 
-               pets.map((object, index) => 
-                  <SelectRow key={index} numberOfColumns={pets.length} selected={isPetSelected(object)} onSelected={() => onSelected(index)}> 
+               pets.map((object) => 
+                  <SelectRow numberOfColumns={1} onSelected={() => onSelected(object)} selected={isPetSelected(object)}>
+                     <Column>
+                        <Field type="profile" value={object.name} pathImage={object.pathImage}/> 
+                     </Column>
+                     <Column>
+                        <Field type="text" value={object.race}/> 
+                     </Column>
+                     <Column>
+                        <Field type="text" value={object.age}/> 
+                     </Column>
                      <Column flexType="flex-none">
-                        <Field type="profile" pathImage={object.pathImage} value={object.name} />
+                        <Field type={object.type}/> 
                      </Column>
-                     <Column >
-                        <Field type="text" value={object.race} />
-                     </Column>
-                     <Column >
-                        <Field type="text" value={object.age} />
-                     </Column>
-                     <Column flexType="flex-none">
-                        <Field type={object.type}/>
-                     </Column>
+                     
                   </SelectRow>
-               )
+               )   
             }
        </Box>
       </>

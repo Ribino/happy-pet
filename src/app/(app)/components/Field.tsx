@@ -42,7 +42,7 @@ function generateFied(type: string, value?: string, className?: string, pathImag
       case FieldTypes.PROFILE:
             return  <div className="text-xs flex mx-1 y-1 justify-start items-center">               
                            {getProfileIcon(value, pathImage)}  
-                           <span className="pl-4 text-left group-hover/select-row:text-white">{value}</span>
+                           <span className="pl-4 text-center w-full group-hover/select-row:text-white">{value}</span>
                   </div>
       default: 
             return <div className='text-red-600'> type do not exists </div>;

@@ -3,6 +3,10 @@ import { useState } from "react";
 import Button from "@/app/components/Button";
 import { isEmpty } from 'lodash';
 import SelectPet from "./components/SelectPet";
+import WorkInProgress from "@/app/components/WorkInProgress";
+import { useRouter } from "next/navigation";
+
+
 
 interface Pet {
   id: number,
@@ -14,17 +18,36 @@ interface Pet {
 }
 
 export default function CreateScheduling() {  
+  const route = useRouter()
+  const [step, setStep] = useState(1);
   const [selectedPet, setSelectedPet] = useState<Pet>()
 
+
+
+
+  function backStep() {
+    if(step === 1) {
+      return route.push('/scheduling')
+    }
+    setStep(value => value - 1);
+  }
+
+  function renderStep() {
+    switch(step) {
+      case 1: return <SelectPet selectedPet={selectedPet} setSelectedPet={setSelectedPet}/>
+      default: return <WorkInProgress/>
+    }
+  }
+
    return (
-     <div>
+     <div className="flex flex-col w-full items-center gap-y-20">
       <div>
-      
+         Progress Bar
       </div>
-       <SelectPet selectedPet={selectedPet} setSelectedPet={setSelectedPet}/>
-       <div className="flex gap-5">
-        <Button secundary>Cancelar</Button>
-        <Button disabled={isEmpty(selectedPet)}> Avançar</Button>
+        {renderStep()}
+       <div className="flex gap-4">
+        <Button secundary action={backStep}> { step == 1 ? 'Cancelar' : '< Voltar' }</Button>
+        <Button disabled={isEmpty(selectedPet)} action={() => setStep(value => value + 1)}> Avançar {'>'} </Button>
        </div>
      </div>
    )
