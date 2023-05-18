@@ -72,7 +72,7 @@ export default function Home() {
   ]
 
    return (
-      <main className="h-screen w-screen">
+      <main className="">
          <div className="grid xl:grid-cols-5 lg:grid-cols-1 lg:mx-40 xl:mx-20 gap-y-20 gap-x-20 mt-10 xl:h-[32rem]">
          <Box headerTitle="Agendamentos" emptyMessage="Calendario" className="xl:col-span-2">
             <div className="flex flex-col justify-center items-center 2xl:mx-24 xl:mx-14 lg:mx-36">
