@@ -32,6 +32,16 @@ export default function CreateScheduling() {
     setStep((value) => value - 1);
   }
 
+  function disableButton(){
+    switch(step){
+      case 1:
+        return isEmpty(selectedPet)
+      case 2:
+        return isEmpty(selectedService)
+      default:
+        return false
+  }
+  }
   function renderStep() {
     switch (step) {
       case 1:
@@ -60,7 +70,7 @@ export default function CreateScheduling() {
         {renderStep()}
        <div className="flex gap-4">
         <Button secundary action={backStep}> { step == 1 ? 'Cancelar' : '< Voltar' }</Button>
-        <Button disabled={isEmpty(selectedPet)} action={() => setStep(value => value + 1)}> { step == 4 ? 'Confirmar' : 'Avançar >' } </Button>
+        <Button disabled={disableButton()} action={() => setStep(value => value + 1)}> { step == 4 ? 'Confirmar' : 'Avançar >' } </Button>
        </div>
      </div>
    )
