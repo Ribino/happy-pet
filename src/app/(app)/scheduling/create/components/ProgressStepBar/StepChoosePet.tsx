@@ -28,7 +28,7 @@ export default function StepChoosePet(props: Props) {
             ${backgroundIconStyle}`}> 
             <MdPets className={`w-2/4 h-max transition-all ${iconStyle}`} />
          </div>
-         <div className={`w-60 h-4 -m-1 transition-all ${progressBarStyle}`}/>
+         <div className={`w-80 h-4 -m-1 transition-all ${progressBarStyle}`}/>
       </>
    )
 }
