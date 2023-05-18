@@ -12,7 +12,7 @@ export default function Column(props: Props) {
   return (
    <>
       <div
-         className={`py-1.5 column h-full  group-hover/select-row:bg-teal-700/80 transition-all
+         className={`column h-full  group-hover/select-row:bg-teal-700/80 transition-all
          ${
             props.applyHighlite
                ? "  !bg-orange-400 text-white font-semibold"

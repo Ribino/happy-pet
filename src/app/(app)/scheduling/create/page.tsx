@@ -55,7 +55,7 @@ export default function CreateScheduling() {
   }
 
    return (
-     <div className="flex flex-col w-full items-center gap-y-20">
+     <div className="flex flex-col px-52 w-full items-center gap-y-20">
        <ProgressStepBar step={step}/>
         {renderStep()}
        <div className="flex gap-4">

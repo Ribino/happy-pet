@@ -77,7 +77,7 @@ export default function SelectService(props: Props) {
   }
 
   return (
-    <div className="px-32 w-full flex justify-center gap-16">
+    <div className="w-full flex justify-center gap-16">
       <div className="w-full">
         <Box emptyMessage={emptyMessage} headerTitle="Serviços">
           {services.map((object) => (
