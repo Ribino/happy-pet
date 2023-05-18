@@ -3,7 +3,7 @@ import Box from "@/app/(app)/components/Box";
 import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import jwt from 'jwt-decode'
 import { parseCookies } from "nookies";
 
@@ -12,7 +12,7 @@ interface Props {
    setSelectedPet: Dispatch<SetStateAction<Pet | undefined>>
 }
 
-interface Pet {
+export interface Pet {
    id: number,
    pathImage: string,
    name: string,

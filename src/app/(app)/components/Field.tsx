@@ -40,9 +40,15 @@ function generateFied(type: string, value?: string, className?: string, pathImag
       case FieldTypes.ICON_CAT: 
             return <TbCat className={`icon text-4xl text-orange-400 group-hover/select-row:text-orange-200 ${fieldAdjusts} ${className}`}/>
       case FieldTypes.PROFILE:
-            return  <div className="text-xs flex mx-1 y-1 justify-start items-center">               
+            return  <div className={`text-xs flex mx-1 y-1 justify-start items-center ${className}`}>               
                            {getProfileIcon(value, pathImage)}  
                            <span className="pl-4 text-center w-full group-hover/select-row:text-white">{value}</span>
+                  </div>
+      case FieldTypes.NUMBER:
+         return  <div className="text-xs flex justify-start items-center">               
+                           <div className='h-fit w-fit bg-orange-400 rounded-s-lg px-10'>
+                              <span className='h-10 w-5 flex items-center font-bold justify-center text-zinc-100'>R$&nbsp;{value}</span>
+                           </div>
                   </div>
       default: 
             return <div className='text-red-600'> type do not exists </div>;

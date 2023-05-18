@@ -1,6 +1,4 @@
-import WorkInProgress from "@/app/components/WorkInProgress";
 import Box from "../components/Box";
-import Row from "../components/Row/Row";
 import Button from "@/app/components/Button";
 
 export default function Scheduling() {
