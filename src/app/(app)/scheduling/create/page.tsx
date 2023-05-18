@@ -42,7 +42,7 @@ export default function CreateScheduling() {
    return (
      <div className="flex flex-col w-full items-center gap-y-20">
       <div>
-         Progress Bar
+         <div className="rounded-full w-12 h-12 bg-slate-500"> </div>
       </div>
         {renderStep()}
        <div className="flex gap-4">

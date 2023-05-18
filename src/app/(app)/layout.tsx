@@ -17,7 +17,7 @@ export default function AppLayout({children}: {
   return (
       <>
          <Header userName={user} pathImage=''/>
-         <div className='flex container mx-auto m-5'>
+         <div className='flex container mx-auto m-5 w-screen h-[calc(100vh-7.5rem)]'>
             {children}
          </div>
       </>

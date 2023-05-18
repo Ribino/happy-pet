@@ -31,9 +31,10 @@ export default function SignIn() {
       });
       
       if(res.ok) {
-         res.json().then(body => setCookie(undefined, "happy-pet.token", body.access_token, {
+         await res.json().then(body => setCookie(undefined, "happy-pet.token", body.access_token, {
             maxAge: 60*60*3 // 3 hours
          }))
+         
          route.push('/')
          return;
       }
