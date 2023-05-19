@@ -6,10 +6,11 @@ import SelectRow from "@/app/(app)/components/Row/SelectRow";
 import { Dispatch, SetStateAction } from "react";
 import jwt from 'jwt-decode'
 import { parseCookies } from "nookies";
+import { Scheduling } from "../page";
 
 interface Props {
-   selectedPet: Pet | undefined
-   setSelectedPet: Dispatch<SetStateAction<Pet | undefined>>
+   scheduling: Scheduling | undefined
+   setScheduling: Dispatch<SetStateAction<Scheduling | undefined>>
 }
 
 export interface Pet {
@@ -22,11 +23,8 @@ export interface Pet {
 }
 
 export default function SelectPet(props: Props) { 
+   const {scheduling, setScheduling} = props;
    const emptyMessage = "Nenhum Pet cadastrado no momento"
-   
-   const cookies = parseCookies()
-
-   const user = jwt<any>(cookies['happy-pet.token'])
 
    // const res = fetch(`${process.env.HOST}/pet/client/${user?.id}`, {
    //    method: "GET",
@@ -48,11 +46,14 @@ export default function SelectPet(props: Props) {
   
     
     function onSelected(pet: Pet) {
-      props.setSelectedPet(isPetSelected(pet) ? undefined : pet) 
+      const newScheduling = {
+         pet: isPetSelected(pet) ? undefined : pet
+      }
+      setScheduling(newScheduling);
     }
   
     function isPetSelected(pet: Pet): boolean {
-      return props.selectedPet?.id == pet.id
+      return scheduling != null && scheduling.pet?.id == pet.id
     }
    return (
       <>

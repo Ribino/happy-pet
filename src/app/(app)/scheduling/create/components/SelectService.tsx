@@ -3,13 +3,13 @@ import Box from "../../../components/Box";
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
 import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
-import { Pet } from "./SelectPet";
 import Textarea from "@/app/components/Textarea";
+import { Scheduling } from "../page";
+import Row from "@/app/(app)/components/Row/Row";
 
 interface Props {
-  selectedService: Service | undefined;
-  setSelectedService: Dispatch<SetStateAction<Service | undefined>>;
-  selectedPet: Pet | undefined;
+  scheduling: Scheduling | undefined
+  setScheduling: Dispatch<SetStateAction<Scheduling | undefined>>
 }
 
 export interface Service {
@@ -21,6 +21,7 @@ export interface Service {
 }
 
 export default function SelectService(props: Props) {
+  const {scheduling, setScheduling} = props;
   const emptyMessage = "Nenhum serviço cadastrado no momento";
  
   const services = [
@@ -69,11 +70,16 @@ export default function SelectService(props: Props) {
   ];
 
   function onSelected(service: Service) {
-    props.setSelectedService(isServiceSelected(service) ? undefined : service);
+    const newScheduling = { 
+      pet: scheduling?.pet,
+      service: isServiceSelected(service) ? undefined : service
+    }
+
+    setScheduling(newScheduling);
   }
 
   function isServiceSelected(service: Service): boolean {
-    return props.selectedService?.id == service.id;
+    return scheduling != null && scheduling.service?.id == service.id;
   }
 
   return (
@@ -97,11 +103,15 @@ export default function SelectService(props: Props) {
         </Box>
       </div>
       <div className="w-full">
-        <Field
-          type="profile"
-          value={props.selectedPet?.name}
-          className="w-full bg-white rounded-xl border-solid border-2 shadow-lg p-4"
-        />
+        <Row applyShadow numberOfColumns={1}>
+          <Column>
+            <Field
+                type="profile"
+                value={scheduling?.pet?.name} 
+                pathImage={scheduling?.pet?.pathImage}
+                className="px-1 py-1.5 !text-base"/>
+          </Column>
+        </Row>
         <br />
         <span className="text-base">Observações</span>
         <Textarea

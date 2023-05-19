@@ -8,14 +8,21 @@ import { useRouter } from "next/navigation";
 import SelectService, { Service } from "./components/SelectService";
 
 import ProgressStepBar from './components/ProgressStepBar/ProgressStepBar';
+import { Professional } from "./components/SelectDate";
 
+export interface Scheduling {
+  pet?: Pet,
+  service?: Service,
+  observation?: string,
+  professional?: Professional,
+  date?: Date
+}
 
 export default function CreateScheduling() {  
   const route = useRouter()
   const [step, setStep] = useState(1);
-  const [selectedPet, setSelectedPet] = useState<Pet>();
-  const [selectedService, setSelectedService] = useState<Service>();
-  
+  const [scheduling, setScheduling] = useState<Scheduling>();
+ 
   function backStep() {
     if (step === 1) {
       return route.push("/scheduling");
@@ -26,9 +33,9 @@ export default function CreateScheduling() {
   function disableButton(){
     switch(step){
       case 1:
-        return isEmpty(selectedPet)
+        return isEmpty(scheduling?.pet)
       case 2:
-        return isEmpty(selectedService)
+        return isEmpty(scheduling?.service)
       default:
         return false
   }
@@ -38,16 +45,15 @@ export default function CreateScheduling() {
       case 1:
         return (
           <SelectPet
-            selectedPet={selectedPet}
-            setSelectedPet={setSelectedPet}
+            scheduling={scheduling}
+            setScheduling={setScheduling}
           />
         );
       case 2:
         return (
           <SelectService
-            selectedService={selectedService}
-            setSelectedService={setSelectedService}
-            selectedPet={selectedPet}
+            scheduling={scheduling}
+            setScheduling={setScheduling}
           />
         );
       default:
