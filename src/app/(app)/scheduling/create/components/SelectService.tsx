@@ -22,7 +22,7 @@ export interface Service {
 
 export default function SelectService(props: Props) {
   const emptyMessage = "Nenhum serviço cadastrado no momento";
-
+ 
   const services = [
     {
       id: 2,
@@ -86,8 +86,8 @@ export default function SelectService(props: Props) {
               onSelected={() => onSelected(object)}
               selected={isServiceSelected(object)}
             >
-              <Column flexType="flex-none" className="py-0 w-24">
-                <Field type="number" value={object.price.toString()} />
+              <Column flexType="flex-none" applyHighlite className="w-20 !py-3.5">
+                <Field type="price" value={object.price} />
               </Column>
               <Column>
                 <Field type="text" value={object.name} />

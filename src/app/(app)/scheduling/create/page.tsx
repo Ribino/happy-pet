@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Button from "@/app/components/Button";
 import { isEmpty } from "lodash";
-import SelectPet from "./components/SelectPet";
+import SelectPet, { Pet } from "./components/SelectPet";
 import WorkInProgress from "@/app/components/WorkInProgress";
 import { useRouter } from "next/navigation";
 import SelectService, { Service } from "./components/SelectService";
@@ -10,21 +10,12 @@ import SelectService, { Service } from "./components/SelectService";
 import ProgressStepBar from './components/ProgressStepBar/ProgressStepBar';
 
 
-interface Pet {
-  id: number,
-  pathImage: string,
-  name: string,
-  race: string,
-  age: string,
-  type: string,
-}
-
 export default function CreateScheduling() {  
   const route = useRouter()
   const [step, setStep] = useState(1);
   const [selectedPet, setSelectedPet] = useState<Pet>();
   const [selectedService, setSelectedService] = useState<Service>();
-
+  
   function backStep() {
     if (step === 1) {
       return route.push("/scheduling");

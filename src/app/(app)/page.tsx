@@ -25,33 +25,33 @@ export default function Home() {
    const update = ForceUpdate()
    const data = useRef<Data[]>(
       [
-               //  {
-               //     time: '11:00',
-               //     pathImage:'kelly-perfil.png',
-               //     professionalName: 'Kellinguiça', 
-               //     service:'Banho & Tosa Higiênica', 
-               //     petName: 'Floquinho',
-               //     petType: 'DOG',
-               //     selected: false
-               //  },
-               //  {
-               //     time: '11:00',
-               //     pathImage:'minicraqboqueteiro.jpg',
-               //     professionalName: 'Julio Almeida', 
-               //     service:'Banho & Tosa Higiênica', 
-               //     petName: 'Leo',
-               //     petType: 'CAT',
-               //     selected: false
-               //  },
-               //  {
-               //     time: '11:00',
-               //     pathImage:'',
-               //     professionalName: 'Maria Madalena dos Santos Silva', 
-               //     service:'Banho & Tosa Higiênica', 
-               //     petName: 'Floquinho',
-               //     petType: 'DOG',
-               //     selected: false
-               //  },
+                {
+                   time: '11:00',
+                   pathImage:'kelly-perfil.png',
+                   professionalName: 'Kellinguiça', 
+                   service:'Banho & Tosa Higiênica', 
+                   petName: 'Floquinho',
+                   petType: 'DOG',
+                   selected: false
+                },
+                {
+                   time: '11:00',
+                   pathImage:'minicraqboqueteiro.jpg',
+                   professionalName: 'Julio Almeida', 
+                   service:'Banho & Tosa Higiênica', 
+                   petName: 'Leo',
+                   petType: 'CAT',
+                   selected: false
+                },
+                {
+                   time: '11:00',
+                   pathImage:'',
+                   professionalName: 'Maria Madalena dos Santos Silva', 
+                   service:'Banho & Tosa Higiênica', 
+                   petName: 'Floquinho',
+                   petType: 'DOG',
+                   selected: false
+                },
       ]
       )
 

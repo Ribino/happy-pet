@@ -5,13 +5,13 @@ import Loading from "@/app/components/Loading";
 interface Props {
    className?:string,
    type: string,
-   value?:string,
+   value?:string | number,
    pathImage?:string,
 }
 
 enum FieldTypes {
    TEXT = 'text',
-   NUMBER = 'number',
+   PRICE = 'price',
    HOUR = 'hour',
    PROFILE = 'profile',
    ICON_DOG = 'DOG',
@@ -30,7 +30,7 @@ export default function Field(props: Props) {
 }
 
 
-function generateFied(type: string, value?: string, className?: string, pathImage?: string) {
+function generateFied(type: string, value?: string | number, className?: string, pathImage?: string) {
    const fieldAdjusts = "flex h-full mx-2 y-2 y-2 justify-center items-center"
    switch(type) {
       case FieldTypes.TEXT: 
@@ -41,15 +41,11 @@ function generateFied(type: string, value?: string, className?: string, pathImag
             return <TbCat className={`icon text-4xl text-orange-400 group-hover/select-row:text-orange-200 ${fieldAdjusts} ${className}`}/>
       case FieldTypes.PROFILE:
             return  <div className={`text-xs flex mx-1 y-1 justify-start items-center ${className}`}>               
-                           {getProfileIcon(value, pathImage)}  
+                           {getProfileIcon(value?.toString(), pathImage)}  
                            <span className="pl-4 text-center w-full group-hover/select-row:text-white">{value}</span>
                   </div>
-      case FieldTypes.NUMBER:
-         return  <div className="text-xs flex justify-start items-center">               
-                           <div className='h-fit w-fit bg-orange-400 rounded-s-lg px-10'>
-                              <span className='h-10 w-5 flex items-center font-bold justify-center text-zinc-100'>R$&nbsp;{value}</span>
-                           </div>
-                  </div>
+      case FieldTypes.PRICE:
+         return  <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts}`}>{`R$ ` + value}</span>
       default: 
             return <div className='text-red-600'> type do not exists </div>;
    }
