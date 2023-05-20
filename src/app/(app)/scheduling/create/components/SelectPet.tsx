@@ -59,19 +59,19 @@ export default function SelectPet(props: Props) {
       <>
          <Box emptyMessage={emptyMessage} headerTitle="Meus Pets" className="w-full">
             {
-               pets.map((object) => 
-                  <SelectRow numberOfColumns={1} onSelected={() => onSelected(object)} selected={isPetSelected(object)}>
+               pets.map((pet) => 
+                  <SelectRow onSelected={() => onSelected(pet)} selected={isPetSelected(pet)}>
                      <Column>
-                        <Field type="profile" value={object.name} pathImage={object.pathImage}/> 
+                        <Field type="profile" value={pet.name} pathImage={pet.pathImage}/> 
                      </Column>
                      <Column>
-                        <Field type="text" value={object.race}/> 
+                        <Field type="text" value={pet.race}/> 
                      </Column>
                      <Column>
-                        <Field type="text" value={object.age}/> 
+                        <Field type="text" value={pet.age}/> 
                      </Column>
                      <Column flexType="flex-none">
-                        <Field type={object.type}/> 
+                        <Field type={pet.type}/> 
                      </Column>
                      
                   </SelectRow>

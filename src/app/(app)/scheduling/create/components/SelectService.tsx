@@ -34,7 +34,7 @@ export default function SelectService(props: Props) {
     },
     {
       id: 3,
-      name: "Banho e Tosa",
+      name: "Banho & Tosa Trimming",
       price: 69.99,
       time: 50,
       serviceType: "PETSHOP",
@@ -86,24 +86,23 @@ export default function SelectService(props: Props) {
     <div className="w-full flex justify-center gap-16">
       <div className="w-full">
         <Box emptyMessage={emptyMessage} headerTitle="Serviços">
-          {services.map((object) => (
+          {services.map((service) => (
             <SelectRow
-              numberOfColumns={1}
-              onSelected={() => onSelected(object)}
-              selected={isServiceSelected(object)}
+              onSelected={() => onSelected(service)}
+              selected={isServiceSelected(service)}
             >
               <Column flexType="flex-none" applyHighlite className="w-20 !py-3.5">
-                <Field type="price" value={object.price} />
+                <Field type="price" value={service.price} />
               </Column>
               <Column>
-                <Field type="text" value={object.name} />
+                <Field type="text" value={service.name} />
               </Column>
             </SelectRow>
           ))}
         </Box>
       </div>
       <div className="w-full">
-        <Row applyShadow numberOfColumns={1}>
+        <Row applyShadow>
           <Column>
             <Field
                 type="profile"
@@ -115,8 +114,8 @@ export default function SelectService(props: Props) {
         <br />
         <span className="text-base">Observações</span>
         <Textarea
-         className="w-full h-72 mt-2 bg-white rounded-xl border-solid border-2 shadow-xl p-2" 
-         placeholder="Alguma observação para o cuidado do seu pet?"
+          className="w-full h-72 mt-2 bg-white rounded-xl border-solid border-2 shadow-xl p-2" 
+          placeholder="Alguma observação para o cuidado do seu pet?"
          />
         
       </div>
