@@ -4,7 +4,7 @@ import './calendar.css'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md'
-import { useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import _ from 'lodash'
 
 function ForceUpdate() {
@@ -17,12 +17,14 @@ interface Props {
    multipleSelect?: boolean
    hightlightDates?: Date[]
    selectedDates?: Date[]
+   selectedDate?: Date
+   setSelectedDate: Dispatch<SetStateAction<Date | undefined>>
    disabledDates?: Date[]
 }
 
 export default function Calendar(props: Props) {
    const update = ForceUpdate();
-   const [selectedDate, setSelectedDate] = useState<Date>();
+   const {selectedDate, setSelectedDate} = props;
    const selectedDates = useRef<Date[]>(props.selectedDates ?? [])
    
    if(props.multipleSelect && !_.isUndefined(selectedDate)) {

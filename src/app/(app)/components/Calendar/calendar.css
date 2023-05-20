@@ -107,7 +107,7 @@ abbr {
 }
 
 .selectedDate abbr {
-  background-color: rgb(244 170 65 / 1);
+  background-color: rgb(251 146 60) !important;
   border-radius: 50%;
   color: white;
   transition-duration: 100ms
