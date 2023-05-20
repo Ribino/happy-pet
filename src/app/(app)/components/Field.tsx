@@ -34,7 +34,7 @@ function generateFied(type: string, value?: string | number, className?: string,
    const fieldAdjusts = "flex h-full mx-2 y-2 y-2 justify-center items-center"
    switch(type) {
       case FieldTypes.TEXT: 
-            return <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts}`}>{value}</span>
+            return <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts} ${className}`}>{value}</span>
       case FieldTypes.ICON_DOG: 
             return <TbDog className={`icon text-4xl text-orange-400 group-hover/select-row:text-orange-200 ${fieldAdjusts} ${className}`}/>
       case FieldTypes.ICON_CAT: 
@@ -45,7 +45,10 @@ function generateFied(type: string, value?: string | number, className?: string,
                            <span className="pl-4 text-center w-full group-hover/select-row:text-white">{value}</span>
                   </div>
       case FieldTypes.PRICE:
-         return  <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts}`}>{`R$ ` + value}</span>
+         return  <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts} ${className}`}>{`R$ ` + value}</span>
+      case FieldTypes.HOUR:
+         return <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts} ${className}`}>{value + ':00h'}</span>
+      
       default: 
             return <div className='text-red-600'> type do not exists </div>;
    }

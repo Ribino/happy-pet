@@ -20,7 +20,7 @@ export default function Box(props: Props) {
             </div>
          )}
 
-         <div className="bg-zinc-100 overflow-auto h-full">
+         <div className="text-center bg-zinc-100 overflow-auto h-full px-2">
          {emptyInfo  
             ?  <div className="h-full flex justify-center items-center italic text-neutral-600 text-sm">
                   {props.emptyMessage}
