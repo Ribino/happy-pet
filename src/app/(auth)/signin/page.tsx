@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { setCookie } from 'nookies';
 import { useRouter } from "next/navigation";
 
-class DataUser {
+interface DataUser {
    email?: string
    password?: string
 }
@@ -19,7 +19,6 @@ export default function SignIn() {
    const route = useRouter()
 
    async function SignIn(data: DataUser) {
-   
       const res = await fetch(`${process.env.HOST}/auth/signin`, {
          headers: {
             "Content-Type": "application/json"
@@ -29,7 +28,6 @@ export default function SignIn() {
          mode: "cors",
 
       });
-      
       if(res.ok) {
          await res.json().then(body => setCookie(undefined, "happy-pet.token", body.access_token, {
             maxAge: 60*60*3 // 3 hours
@@ -44,7 +42,7 @@ export default function SignIn() {
    return (
       <div className="">
          <h1 className="flex justify-center text-3xl font-semibold text-teal-800 mb-14">Olá, seja bem vindo! </h1>
-         <form className="flex flex-col gap-y-4" onSubmit={handleSubmit(SignIn)} noValidate>
+         <form className="flex flex-col gap-y-4" onSubmit={handleSubmit(SignIn, () => console.log('invalid'))} noValidate >
             <InputForm label="Email" name="email" type="email" register={register}/>
             <InputForm label="Senha" name="password" type="password" register={register}/>
             <Button className="mt-6 !w-full" type="submit">Entrar</Button>
