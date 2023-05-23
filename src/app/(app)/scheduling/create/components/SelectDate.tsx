@@ -84,7 +84,10 @@ export default function SelectDate(props: Props) {
             <Box headerTitle="Profissionais" emptyMessage="Escolha uma data">
                {
                   professionals.map((professional) => 
-                     <SelectRow onSelected={() => onSelected(professional)} selected={isProfessionalSelected(professional)}>
+                     <SelectRow 
+                        key={professional.id}
+                        onSelected={() => onSelected(professional)} 
+                        selected={isProfessionalSelected(professional)}>
                         <Column applyHighlite flexType="flex-none">
                            <Field type="hour" value={professional.availableHour} />
                         </Column>

@@ -60,7 +60,10 @@ export default function SelectPet(props: Props) {
          <Box emptyMessage={emptyMessage} headerTitle="Meus Pets" className="w-full">
             {
                pets.map((pet) => 
-                  <SelectRow onSelected={() => onSelected(pet)} selected={isPetSelected(pet)}>
+                  <SelectRow
+                     key={pet.id} 
+                     onSelected={() => onSelected(pet)} 
+                     selected={isPetSelected(pet)}>
                      <Column>
                         <Field type="profile" value={pet.name} pathImage={pet.pathImage}/> 
                      </Column>

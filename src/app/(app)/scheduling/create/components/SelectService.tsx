@@ -87,7 +87,7 @@ export default function SelectService(props: Props) {
       <div className="w-full">
         <Box emptyMessage={emptyMessage} headerTitle="Serviços">
           {services.map((service) => (
-            <SelectRow
+            <SelectRow key={service.id}
               onSelected={() => onSelected(service)}
               selected={isServiceSelected(service)}
             >
