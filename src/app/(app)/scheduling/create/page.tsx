@@ -9,34 +9,9 @@ import SelectService from "./components/SelectService/SelectService";
 import ProgressStepBar from './components/ProgressStepBar/ProgressStepBar';
 import SelectDate from "./components/SelectDate/SelectDate";
 import ConfirmScheduling from "./components/ConfirmScheduling";
-import { parseCookies } from "nookies";
-import { UserPayload } from "../../layout";
-import jwt from 'jwt-decode';
 import { Professional } from "./components/SelectDate/ListProfessional";
 import { Service } from "./components/SelectService/ListService";
 import { Pet } from "./components/SelectPet/ListPet";
-
-
-export function ForceUpdate() {
-   const [value, setValue] = useState(0);
-   return () => setValue(value => value + 1);
-}
-
-export function getToken(): string {
-  const storageCookies = parseCookies()
-  return storageCookies['happy-pet.token']
-}
-
-export function decodeToken(): { user: UserPayload; token: string; } | undefined {  
-  let token = getToken();
-  if(isEmpty(token)) {
-    return undefined;
-  }
-  
-  const user = jwt<UserPayload>(token)
-
-  return { user , token }
-}
 
 export interface Scheduling {
   pet?: Pet,

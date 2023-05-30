@@ -3,8 +3,7 @@ import Field from "@/app/(app)/components/Field";
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
 import { isEmpty, isUndefined } from "lodash";
 import { useRef } from "react";
-import { ForceUpdate, decodeToken, getToken } from "../../page";
-import { TbCurrentLocation } from "react-icons/tb";
+import { getToken } from "../../../../components/Utils";
 
 interface Props {
    onSelected: (professional: Professional) => void,
@@ -20,9 +19,8 @@ export interface Professional {
    availableHour: number
 }
 
-export async function ListProfessional(props: Props) {
-   // const update = ForceUpdate()
-   const {onSelected, isProfessionalSelected, selectedDate, selectedServiceId} = props
+export default async function ListProfessional(props: Props) {
+   const { onSelected, isProfessionalSelected, selectedDate, selectedServiceId } = props
    const professionals = useRef<Professional[]>();
 
    if (!isUndefined(selectedDate)) {

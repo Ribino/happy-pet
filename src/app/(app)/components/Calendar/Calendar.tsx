@@ -6,11 +6,7 @@ import 'moment/locale/pt-br'
 import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import _ from 'lodash'
-
-function ForceUpdate() {
-   const [value, setValue] = useState(0);
-   return () => setValue(value => value + 1);
-}
+import { ForceUpdate } from '../Utils'
 
 interface Props {
    showBackground?: boolean

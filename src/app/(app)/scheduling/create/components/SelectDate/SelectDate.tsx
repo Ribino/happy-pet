@@ -5,10 +5,8 @@ import Column from "@/app/(app)/components/Column"
 import Field from "@/app/(app)/components/Field"
 import Calendar from "@/app/(app)/components/Calendar/Calendar"
 import Box from "@/app/(app)/components/Box"
-import SelectRow from "@/app/(app)/components/Row/SelectRow"
-import { isDate } from "lodash"
-import { ListProfessional, Professional } from "./ListProfessional"
 import Loading from "@/app/components/Loading"
+import ListProfessional, { Professional } from "./ListProfessional"
 
 interface Props {
    scheduling: Scheduling | undefined
@@ -32,9 +30,9 @@ export default function SelectDate(props: Props) {
       setScheduling(newScheduling);
     }
   
-    function isProfessionalSelected(professional: Professional): boolean {
+   function isProfessionalSelected(professional: Professional): boolean {
       return scheduling != null && scheduling.professional?.id == professional.id && scheduling.professional.availableHour == professional.availableHour;
-    }
+   }
    
 
    return (

@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
 import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
-import { ForceUpdate, getToken } from "../../page";
 import { isEmpty } from "lodash";
+import { ForceUpdate, getToken } from "../../../../components/Utils";
 
 interface Props {
   onSelected: (service: Service) => void,

@@ -1,13 +1,11 @@
 
-import jwt from 'jwt-decode'
-import { parseCookies } from "nookies";
 import { isEmpty, isUndefined } from "lodash";
 import {DateTime} from 'luxon';
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
 import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
 import { useRef } from 'react';
-import { ForceUpdate, decodeToken, getToken } from '../../page';
+import { ForceUpdate, decodeToken } from '../../../../components/Utils';
 
 interface Props {
    onSelected: (pet: Pet) => void,
