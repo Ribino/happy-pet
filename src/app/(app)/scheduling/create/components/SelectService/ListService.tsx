@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
 import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
-import { ForceUpdate, decodeToken } from "../../page";
-import { isEmpty, isUndefined } from "lodash";
+import { ForceUpdate, getToken } from "../../page";
+import { isEmpty } from "lodash";
 
 interface Props {
   onSelected: (service: Service) => void,
@@ -24,16 +24,17 @@ export default function ListService(props: Props) {
   const services = useRef<Service[]>();
   
   async function getServices() {
-    const decode = decodeToken();
-      if(!isUndefined(decode)) {
-         const { token } = decode;
+    const token = getToken();
+      if(!isEmpty(token)) {
          const res = await fetch(`${process.env.HOST}/service`, {
             method: "GET",
             headers: {
                Authorization: `Bearer ${token}`
             }
          })
-         services.current = await res.json();
+         if(res.ok) {
+           services.current = await res.json();
+         }
          update();
       }
   }

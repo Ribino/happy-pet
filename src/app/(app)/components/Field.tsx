@@ -47,7 +47,7 @@ function generateFied(type: string, value?: string | number, className?: string,
       case FieldTypes.PRICE:
          return  <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts} ${className}`}>{`R$ ` + value}</span>
       case FieldTypes.HOUR:
-         return <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts} ${className}`}>{value + ':00h'}</span>
+         return <span className={`text-xs group-hover/select-row:text-white ${fieldAdjusts} ${className}`}>{value + ':00'}</span>
       
       default: 
             return <div className='text-red-600'> type do not exists </div>;

@@ -31,7 +31,7 @@ export default function ListPet(props: Props) {
    
    async function getUserPets() {
       const decode = decodeToken();
-      if(!isUndefined(decode)) {
+      if (!isUndefined(decode)) {
          const { user, token } = decode;
          const res = await fetch(`${process.env.HOST}/pet/client/${user.id}`, {
             method: "GET",
@@ -39,7 +39,9 @@ export default function ListPet(props: Props) {
                Authorization: `Bearer ${token}`
             }
          })
-         pets.current = await res.json();
+         if(res.ok) {
+            pets.current = await res.json();
+         }
          update();
       }
    }
@@ -78,7 +80,6 @@ export default function ListPet(props: Props) {
                   <Column flexType="flex-none">
                      <Field type={pet.type}/> 
                   </Column>
-                  
                </SelectRow>
             )   
          }

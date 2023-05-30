@@ -5,20 +5,12 @@ import Field from "@/app/(app)/components/Field";
 import Textarea from "@/app/components/Textarea";
 import { Scheduling } from "../../page";
 import Row from "@/app/(app)/components/Row/Row";
-import ListService from "./ListService";
+import ListService, { Service } from "./ListService";
 import Loading from "@/app/components/Loading";
 
 interface Props {
   scheduling: Scheduling | undefined
   setScheduling: Dispatch<SetStateAction<Scheduling | undefined>>
-}
-
-export interface Service {
-  id: number;
-  name: string;
-  price: number;
-  time: number;
-  serviceType: string;
 }
 
 export default function SelectService(props: Props) {

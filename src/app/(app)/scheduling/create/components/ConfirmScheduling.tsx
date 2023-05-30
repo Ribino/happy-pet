@@ -41,7 +41,7 @@ export default function ConfirmScheduling(props: Props) {
                </Column>
             </Row>
          </div>
-         <span className="flex italic text-xl text-zinc-600"> Dia {moment(date).format('DD/MM/yyyy')} ás <Field className="text-orange-400 !text-xl" type="hour" value={professional?.availableHour}/>?</span>
+         <span className="flex italic text-xl text-zinc-600"> Dia {moment(date).format('DD/MM/yyyy')} ás <span className="text-orange-400 text-xl ml-2">{professional?.availableHour}:00h</span>? </span>
       </div>
    )
 }

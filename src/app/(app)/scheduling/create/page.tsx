@@ -2,16 +2,19 @@
 import { useState } from "react";
 import Button from "@/app/components/Button";
 import { isEmpty } from "lodash";
-import SelectPet, { Pet } from "./components/SelectPet/SelectPet";
+import SelectPet from "./components/SelectPet/SelectPet";
 import WorkInProgress from "@/app/components/WorkInProgress";
 import { useRouter } from "next/navigation";
-import SelectService, { Service } from "./components/SelectService/SelectService";
+import SelectService from "./components/SelectService/SelectService";
 import ProgressStepBar from './components/ProgressStepBar/ProgressStepBar';
-import SelectDate, { Professional } from "./components/SelectDate/SelectDate";
+import SelectDate from "./components/SelectDate/SelectDate";
 import ConfirmScheduling from "./components/ConfirmScheduling";
 import { parseCookies } from "nookies";
 import { UserPayload } from "../../layout";
 import jwt from 'jwt-decode';
+import { Professional } from "./components/SelectDate/ListProfessional";
+import { Service } from "./components/SelectService/ListService";
+import { Pet } from "./components/SelectPet/ListPet";
 
 
 export function ForceUpdate() {
