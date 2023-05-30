@@ -2,14 +2,38 @@
 import { useState } from "react";
 import Button from "@/app/components/Button";
 import { isEmpty } from "lodash";
-import SelectPet, { Pet } from "./components/SelectPet";
+import SelectPet, { Pet } from "./components/SelectPet/SelectPet";
 import WorkInProgress from "@/app/components/WorkInProgress";
 import { useRouter } from "next/navigation";
-import SelectService, { Service } from "./components/SelectService";
-
+import SelectService, { Service } from "./components/SelectService/SelectService";
 import ProgressStepBar from './components/ProgressStepBar/ProgressStepBar';
-import SelectDate, { Professional } from "./components/SelectDate";
+import SelectDate, { Professional } from "./components/SelectDate/SelectDate";
 import ConfirmScheduling from "./components/ConfirmScheduling";
+import { parseCookies } from "nookies";
+import { UserPayload } from "../../layout";
+import jwt from 'jwt-decode';
+
+
+export function ForceUpdate() {
+   const [value, setValue] = useState(0);
+   return () => setValue(value => value + 1);
+}
+
+export function getToken(): string {
+  const storageCookies = parseCookies()
+  return storageCookies['happy-pet.token']
+}
+
+export function decodeToken(): { user: UserPayload; token: string; } | undefined {  
+  let token = getToken();
+  if(isEmpty(token)) {
+    return undefined;
+  }
+  
+  const user = jwt<UserPayload>(token)
+
+  return { user , token }
+}
 
 export interface Scheduling {
   pet?: Pet,
@@ -94,3 +118,4 @@ export default function CreateScheduling() {
    )
  }
  
+

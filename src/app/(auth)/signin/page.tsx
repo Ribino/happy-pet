@@ -1,11 +1,12 @@
 'use client'
 import Button from "@/app/components/Button"
 import InputForm from "@/app/components/InputForm"
-import { useRef } from 'react';
 import Link from "next/link";
 import { useForm } from "react-hook-form"
-import { setCookie } from 'nookies';
+import { parseCookies, setCookie } from 'nookies';
 import { useRouter } from "next/navigation";
+import { isEmpty } from "lodash";
+
 
 interface DataUser {
    email?: string
@@ -13,11 +14,15 @@ interface DataUser {
 }
 
 export default function SignIn() {
-   
-   const user = useRef<DataUser>()
-   const{ register, handleSubmit } = useForm()
    const route = useRouter()
-
+   const{ register, handleSubmit } = useForm()
+   const storageCookies = parseCookies()
+   const token = storageCookies['happy-pet.token']
+   
+   if(!isEmpty(token)) {
+      route.push('/');
+   }
+   
    async function SignIn(data: DataUser) {
       const res = await fetch(`${process.env.HOST}/auth/signin`, {
          headers: {
@@ -29,13 +34,17 @@ export default function SignIn() {
 
       });
       if(res.ok) {
-         await res.json().then(body => setCookie(undefined, "happy-pet.token", body.access_token, {
-            maxAge: 60*60*3 // 3 hours
-         }))
+         await res.json().then(body => 
+            setCookie(undefined, "happy-pet.token", body.access_token, { 
+                  maxAge: 60*60*3 // 3 hours
+               }
+            )
+         )
          
          route.push('/')
          return;
       }
+
       alert('Usuário não existe, crie um para usar nosso sistema')
    }
 
