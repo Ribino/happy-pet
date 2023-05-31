@@ -4,6 +4,7 @@ import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
 import { isEmpty } from "lodash";
 import { ForceUpdate, getToken } from "../../../../components/Utils";
+import Loading from "@/app/components/Loading";
 
 interface Props {
   onSelected: (service: Service) => void,
@@ -21,6 +22,7 @@ export interface Service {
 export default function ListService(props: Props) {
   const update = ForceUpdate();
   const { onSelected, isServiceSelected } = props
+  const emptyMessage = "Nenhum serviço cadastrado no momento";
   const services = useRef<Service[]>();
   
   async function getServices() {
@@ -46,20 +48,25 @@ export default function ListService(props: Props) {
   return (
     <>
       {
-        services.current &&
-        services.current.map((service) => (
-        <SelectRow key={service.id}
-          onSelected={() => onSelected(service)}
-          selected={isServiceSelected(service)}
-        >
-          <Column flexType="flex-none" applyHighlite className="w-20 !py-3.5">
-            <Field type="price" value={service.price} />
-          </Column>
-          <Column>
-            <Field type="text" value={service.name} />
-          </Column>
-        </SelectRow>
-      ))
+        !isEmpty(services.current)
+          ? services.current!.map((service) => 
+          <SelectRow key={service.id}
+            onSelected={() => onSelected(service)}
+            selected={isServiceSelected(service)}
+          >
+            <Column flexType="flex-none" applyHighlite className="w-20 !py-3.5">
+              <Field type="price" value={service.price} />
+            </Column>
+            <Column>
+              <Field type="text" value={service.name} />
+            </Column>
+          </SelectRow>
+          )
+          : services.current 
+            ? <div className="h-full flex justify-center items-center italic text-neutral-600 text-sm">
+                {emptyMessage}
+              </div> 
+            : <Loading /> 
       }
     </> 
   );

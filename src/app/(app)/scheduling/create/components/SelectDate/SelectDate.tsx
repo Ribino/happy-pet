@@ -65,16 +65,14 @@ export default function SelectDate(props: Props) {
          </div>
          <div className="row-span-4 col-span-1 w-96">
             <Box headerTitle="Profissionais" emptyMessage="Escolha uma data">
-               {
-                  <Suspense fallback={<Loading />}>
-                     {/*@ts-ignore*/ }
-                     <ListProfessional 
-                        isProfessionalSelected={isProfessionalSelected} 
-                        onSelected={onSelected}
-                        selectedDate={selectedDate}
-                        selectedServiceId={scheduling?.service?.id} />
-                  </Suspense>
-               }
+               <Suspense fallback={<Loading />}>
+                  {/*@ts-ignore*/ }
+                  <ListProfessional 
+                     isProfessionalSelected={isProfessionalSelected} 
+                     onSelected={onSelected}
+                     selectedDate={selectedDate}
+                     selectedServiceId={scheduling?.service?.id} />
+               </Suspense>
             </Box>
          </div>
       </div>

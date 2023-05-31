@@ -12,7 +12,7 @@ interface Props {
 
 export default function SelectPet(props: Props) { 
    const {scheduling, setScheduling} = props
-   const emptyMessage = "Nenhum Pet cadastrado no momento"
+
       
    function onSelected(pet: Pet) {
       const newScheduling = {
@@ -26,11 +26,9 @@ export default function SelectPet(props: Props) {
    }
    return (
       <>
-         <Box emptyMessage={emptyMessage} headerTitle="Meus Pets" className="w-full">
-            <Suspense fallback={<Loading/>}>      
-               <ListPet onSelected={onSelected} isPetSelected={isPetSelected}/>
-            </Suspense>
-       </Box>
+         <Box headerTitle="Meus Pets" className="w-full">   
+            <ListPet onSelected={onSelected} isPetSelected={isPetSelected}/>
+         </Box>
       </>
    )
 }

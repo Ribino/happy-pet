@@ -15,7 +15,6 @@ interface Props {
 
 export default function SelectService(props: Props) {
   const {scheduling, setScheduling} = props;
-  const emptyMessage = "Nenhum serviço cadastrado no momento";
 
   function onSelected(service: Service) {
     const newScheduling = { 
@@ -33,7 +32,7 @@ export default function SelectService(props: Props) {
   return (
     <div className="w-full flex justify-center gap-16">
       <div className="w-full">
-        <Box emptyMessage={emptyMessage} headerTitle="Serviços">
+        <Box headerTitle="Serviços">
           {
             <Suspense fallback={<Loading/>}>
               <ListService isServiceSelected={isServiceSelected} onSelected={onSelected}/>

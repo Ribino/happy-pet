@@ -21,6 +21,7 @@ export interface Professional {
 
 export default async function ListProfessional(props: Props) {
    const { onSelected, isProfessionalSelected, selectedDate, selectedServiceId } = props
+   const emptyMessage = isUndefined(selectedDate) ? 'Escolha uma data' : 'Não há profissionais disponíveis para este dia'
    const professionals = useRef<Professional[]>();
 
    if (!isUndefined(selectedDate)) {
@@ -62,21 +63,23 @@ export default async function ListProfessional(props: Props) {
    return( 
    <>
       {
-         professionals.current &&
-         professionals.current.map((professional) => 
-         <SelectRow 
-            key={professional.id}
-            onSelected={() => onSelected(professional)} 
-            selected={isProfessionalSelected(professional)}>
-            <Column applyHighlite flexType="flex-none">
-               <Field type="hour" value={professional.availableHour} />
-            </Column>
-            <Column className="sm:w-fit md:w-fit lg:w-80 xl:w-96">
-               <Field type="profile" value={professional.name} pathImage={professional.pathImage} />
-            </Column>
-         </SelectRow>
+         !isEmpty(professionals.current)
+         ? professionals.current!.map((professional) => 
+            <SelectRow 
+               key={professional.id}
+               onSelected={() => onSelected(professional)} 
+               selected={isProfessionalSelected(professional)}>
+               <Column applyHighlite flexType="flex-none">
+                  <Field type="hour" value={professional.availableHour} />
+               </Column>
+               <Column className="sm:w-fit md:w-fit lg:w-80 xl:w-96">
+                  <Field type="profile" value={professional.name} pathImage={professional.pathImage} />
+               </Column>
+            </SelectRow>
       )
-
+         :  <div className="h-full flex justify-center items-center italic text-neutral-600 text-sm">
+               {emptyMessage}
+            </div>
       }
    </>
 )}
