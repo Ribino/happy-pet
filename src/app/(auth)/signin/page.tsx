@@ -15,7 +15,7 @@ interface DataUser {
 
 export default function SignIn() {
    const route = useRouter()
-   const{ register, handleSubmit } = useForm()
+   const{ register, handleSubmit } = useForm<DataUser>()
    const storageCookies = parseCookies()
    const token = storageCookies['happy-pet.token']
    
@@ -34,13 +34,10 @@ export default function SignIn() {
 
       });
       if(res.ok) {
-         await res.json().then(body => 
-            setCookie(undefined, "happy-pet.token", body.access_token, { 
-                  maxAge: 60*60*3 // 3 hours
-               }
-            )
-         )
-         
+         const body = await res.json()
+         setCookie(undefined, "happy-pet.token", body.access_token, { 
+            maxAge: 60*60*3 // 3 hours
+         })
          route.push('/')
          return;
       }
