@@ -11,21 +11,44 @@ const navRoutes  = {
   professional: '/professional',
   client: '/client',
   service: '/service',
-  scheduling: '/scheduling'
+  scheduling: '/scheduling',
+  pets: '/pets',
 }
 
 interface Props {
     userName: string,
-    pathImage?: string
+    pathImage?: string,
+    type: string,
 }
 
 export default function Header(props: Props) {
+    const {userName, type, pathImage} = props
     const shouldDisplayUserImage = !isEmpty(props.pathImage);
     const currentPath = usePathname()
-    
+  
     function checkCurrentRoute(path: string): string {
        if(path === currentPath) return 'text-orange-400/100 font-semibold';
        return '';
+    }
+
+    function hasAccess(path: string): boolean {
+      if(type === 'ADMIN') {
+        if(path === navRoutes.pets) return false;
+        return true;
+      }
+
+      if(type === 'CLIENT') {
+        if(path === navRoutes.pets) return true;
+        if(path === navRoutes.scheduling) return true;
+        return false;
+      }
+
+      if(type === 'PROFESSIONAL') {
+        if(path === navRoutes.scheduling) return true;
+
+      }
+
+      return false;
     }
 
     return (
@@ -36,19 +59,20 @@ export default function Header(props: Props) {
                   <Image className='h-3/5 w-3/5 ' src={logo} alt="Logo"/>
                   <nav className='text-zinc-100 space-x-6 font-medium  hover:[&>*]:text-orange-400 [&>*]:transition-all'>
                     <Link className={checkCurrentRoute(navRoutes.home)} href={navRoutes.home}>Inicio</Link>
-                    <Link className={checkCurrentRoute(navRoutes.professional)} href={navRoutes.professional}>Profissionais</Link>
-                    <Link className={checkCurrentRoute(navRoutes.client)} href={navRoutes.client}>Clientes</Link>
-                    <Link className={checkCurrentRoute(navRoutes.service)} href={navRoutes.service}>Serviços</Link>
-                    <Link className={checkCurrentRoute(navRoutes.scheduling)} href={navRoutes.scheduling}>Agendamentos</Link>
+                    <Link hidden={!hasAccess(navRoutes.professional)} className={checkCurrentRoute(navRoutes.professional)} href={navRoutes.professional}>Profissionais</Link>
+                    <Link hidden={!hasAccess(navRoutes.client)} className={checkCurrentRoute(navRoutes.client)} href={navRoutes.client}>Clientes</Link>
+                    <Link hidden={!hasAccess(navRoutes.service)} className={checkCurrentRoute(navRoutes.service)} href={navRoutes.service}>Serviços</Link>
+                    <Link hidden={!hasAccess(navRoutes.scheduling)} className={checkCurrentRoute(navRoutes.scheduling)} href={navRoutes.scheduling}>Agendamentos</Link>
+                    <Link hidden={!hasAccess(navRoutes.pets)} className={checkCurrentRoute(navRoutes.pets)} href={navRoutes.pets}>Meus Pets</Link>
                   </nav>
                   
                   <div className='col-start-4 justify-end flex items-center space-x-2 text-zinc-100'> 
                     <div className="">
                       {
                        shouldDisplayUserImage ?  
-                          <Image className=" rounded-full w-14 h-14" src={`/${props.pathImage}`} alt="Profile" width={56} height={56}/>
+                          <Image className=" rounded-full w-14 h-14" src={`/${pathImage}`} alt="Profile" width={56} height={56}/>
                         : <div className='w-14 h-14 flex items-center justify-center bg-orange-400 rounded-full'>
-                            <span className='font-medium text-3xl'>{props.userName.slice(0, 1).toUpperCase()}</span>
+                            <span className='font-medium text-3xl'>{userName.slice(0, 1).toUpperCase()}</span>
                           </div>
                       }
                     </div>

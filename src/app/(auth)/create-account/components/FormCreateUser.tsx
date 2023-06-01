@@ -116,7 +116,7 @@ export default function FormCreateUser() {
                <div className="flex justify-center mt-14">
                   {
                      step == 4 
-                     ?  <Button className="" type="submit">{
+                     ?  <Button className="!w-full" type="submit">{
                         loading
                         ? <Loading />
                         : 'Criar Conta'
