@@ -20,7 +20,7 @@ export default function SignIn() {
    const token = storageCookies['happy-pet.token']
    
    if(!isEmpty(token)) {
-      route.push('/');
+      route.replace('/');
    }
    
    async function SignIn(data: DataUser) {
@@ -33,12 +33,13 @@ export default function SignIn() {
          mode: "cors",
 
       });
+      console.log(res)
       if(res.ok) {
          const body = await res.json()
          setCookie(undefined, "happy-pet.token", body.access_token, { 
             maxAge: 60*60*3 // 3 hours
          })
-         route.push('/')
+         route.replace('/')
          return;
       }
 
