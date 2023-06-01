@@ -4,7 +4,7 @@ import Loading from "@/app/components/Loading";
 
 interface Props {
    className?:string,
-   type: string,
+   type: 'text' | 'price' | 'hour' | 'profile' | 'DOG' | 'CAT' | string ,
    value?:string | number,
    pathImage?:string,
 }
@@ -17,8 +17,6 @@ enum FieldTypes {
    ICON_DOG = 'DOG',
    ICON_CAT = 'CAT'
 }
-
-
 
 export default function Field(props: Props) {
 

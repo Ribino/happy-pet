@@ -7,6 +7,7 @@ interface Props {
    children: ReactNode
    disabled?: boolean;
    secundary?: boolean;
+   noColor?: boolean
    action?: Function;
    redirect?: string;
    className?: string;
