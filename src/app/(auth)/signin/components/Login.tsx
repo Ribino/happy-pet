@@ -25,13 +25,13 @@ export default async function Login() {
        mode: "cors",
 
     });
-    console.log(res)
+
     if(res.ok) {
        const body = await res.json()    
        setCookie(undefined, "happy-pet.token", body.access_token, { 
           maxAge: 60*60*3 // 3 hours
        })
-       
+
        return route.refresh()
     }
     alert('Usuário não existe, crie um para usar nosso sistema')
