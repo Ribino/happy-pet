@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Login from "./component/Login";
+import Login from "./components/Login";
 import { cookies } from "next/headers";
 import { isEmpty } from "lodash";
 import { redirect } from "next/navigation";

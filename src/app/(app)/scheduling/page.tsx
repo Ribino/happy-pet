@@ -28,7 +28,8 @@ export default async function Scheduling() {
       method: "GET",
       headers: {
          Authorization: `Bearer ${token}`
-      }
+      },
+      cache: "reload"
     })
     if(res.ok){
       schedulings = await res.json();

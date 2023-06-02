@@ -12,7 +12,7 @@ interface DataUser {
 }
 
 export default async function Login() {
-  const{ register, handleSubmit } = useForm<DataUser>()
+  const{ register, handleSubmit, formState } = useForm<DataUser>()
   const route = useRouter()
    
   async function SignIn(data: DataUser) {
@@ -27,14 +27,13 @@ export default async function Login() {
     });
     console.log(res)
     if(res.ok) {
-       const body = await res.json()
+       const body = await res.json()    
        setCookie(undefined, "happy-pet.token", body.access_token, { 
           maxAge: 60*60*3 // 3 hours
        })
-       route.replace('/')
-       return;
+       
+       return route.refresh()
     }
-
     alert('Usuário não existe, crie um para usar nosso sistema')
  }
 
