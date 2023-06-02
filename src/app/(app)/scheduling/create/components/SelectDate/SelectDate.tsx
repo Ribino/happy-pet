@@ -18,7 +18,7 @@ export default function SelectDate(props: Props) {
    const [selectedDate, setSelectedDate] = useState<Date>();
 
 
-   function onSelected(professional: Professional) {
+   function onSelectedProfessional(professional: Professional) {
       const newScheduling: Scheduling = { 
         pet: scheduling?.pet,
         service: scheduling?.service,
@@ -69,7 +69,7 @@ export default function SelectDate(props: Props) {
                   {/*@ts-ignore*/ }
                   <ListProfessional 
                      isProfessionalSelected={isProfessionalSelected} 
-                     onSelected={onSelected}
+                     onSelected={onSelectedProfessional}
                      selectedDate={selectedDate}
                      selectedServiceId={scheduling?.service?.id} />
                </Suspense>
