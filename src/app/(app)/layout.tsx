@@ -33,8 +33,9 @@ export default function AppLayout({children}: {
   children: React.ReactNode
 }) {
   const user = decodeToken()
+  
   if(isUndefined(user)) {
-    redirect('/signin', RedirectType.push);
+    redirect('/signin', RedirectType.replace);
   }
 
   return (

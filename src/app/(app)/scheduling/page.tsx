@@ -8,6 +8,8 @@ import Column from "../components/Column";
 import Field from "../components/Field";
 import { MdNavigateNext } from "react-icons/md"
 import { DateTime } from 'luxon'
+import next from "next/types";
+
 interface ListScheduling {
   id: number,
   petImage: string,
@@ -23,13 +25,19 @@ export default async function Scheduling() {
   let schedulings: ListScheduling[] = []
   const token = getToken()
   const user = decodeToken()
+
   if(!isUndefined(user)){
     const res = await fetch(`${process.env.HOST}/scheduling/client/${user.id}`, {
       method: "GET",
       headers: {
          Authorization: `Bearer ${token}`
+      },
+      cache: "no-store",
+      next: {
+        revalidate: 1
       }
     })
+
     if(res.ok){
       schedulings = await res.json();
     }
