@@ -32,9 +32,6 @@ export default async function ListScheduling() {
          Authorization: `Bearer ${token}`
       },
       cache: "no-store",
-      next: {
-        tags: ["schedulings"]
-      }
     })
 
     if(res.ok){

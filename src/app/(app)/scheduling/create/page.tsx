@@ -38,7 +38,6 @@ export default function CreateScheduling() {
   async function nextStep() {
     if(step === 4) {
       if(await createScheduling()) {
-        revalidateTag("schedulings")
         return route.push("/scheduling");
       }
       alert('Erro interno ao criar o agendamento, por favor tente mais tarde')
