@@ -9,10 +9,6 @@ import Field from "../components/Field";
 import { MdNavigateNext } from "react-icons/md"
 import { DateTime } from 'luxon'
 
-interface Props {
-   noResultsFounds: () => void;
-}
-
 interface ListScheduling {
   id: number,
   petImage: string,
@@ -23,7 +19,7 @@ interface ListScheduling {
   time: number,
 }
 
-export default async function ListScheduling({noResultsFounds} : Props) {
+export default async function ListScheduling() {
   const emptyMessage = 'Clique em agendar para realizar seu primeiro agendamento'
   let schedulings: ListScheduling[] = []
   const token = getToken()
@@ -43,9 +39,6 @@ export default async function ListScheduling({noResultsFounds} : Props) {
 
     if(res.ok){
       schedulings = await res.json();
-      if(isEmpty(schedulings)) {
-         noResultsFounds();
-      }
     }
   }
   
