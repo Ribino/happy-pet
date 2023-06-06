@@ -38,7 +38,9 @@ export default function CreateScheduling() {
   async function nextStep() {
     if(step === 4) {
       if(await createScheduling()) {
-        return route.push("/scheduling", {forceOptimisticNavigation: false});
+        route.push("/scheduling")
+        route.refresh()
+        return;
       }
       alert('Erro interno ao criar o agendamento, por favor tente mais tarde')
       return;
