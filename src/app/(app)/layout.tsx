@@ -40,9 +40,7 @@ export default function AppLayout({children}: {
 
   return (
       <>
-        <Suspense fallback={<header  className='bg-teal-700 h-20'/>}>
-          <Header userName={user.name} pathImage={''} type={user.type}/>
-        </Suspense>
+         <Header userName={user.name} pathImage={''} type={user.type}/>
          <div className='flex container mx-auto m-5 w-screen h-[calc(100vh-7.5rem)]'>
             {children}
          </div>
