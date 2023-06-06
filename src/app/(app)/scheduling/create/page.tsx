@@ -13,7 +13,7 @@ import { Professional } from "./components/SelectDate/ListProfessional";
 import { Service } from "./components/SelectService/ListService";
 import { Pet } from "./components/SelectPet/ListPet";
 import { getToken } from "../../components/Utils";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export interface Scheduling {
   pet?: Pet,
@@ -38,7 +38,7 @@ export default function CreateScheduling() {
   async function nextStep() {
     if(step === 4) {
       if(await createScheduling()) {
-        route.prefetch("/scheduling")
+        revalidateTag("schedulings")
         return route.push("/scheduling");
       }
       alert('Erro interno ao criar o agendamento, por favor tente mais tarde')
