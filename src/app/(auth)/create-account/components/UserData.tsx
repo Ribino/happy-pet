@@ -17,7 +17,7 @@ export default function UserData(props: Props) {
          <h2 className="mb-10 text-orange-500 text-center"> Precisamos de alguns dados pessoais </h2>
          <div className="flex flex-col gap-y-5">
             <InputForm focus label="CPF" name="cpf" type="text" register={props.register} showError errorMessage={cpfError} />
-            <InputForm label="Data Nascimento" name="birthday" type="date" register={props.register} showError errorMessage={birthdayError}/>
+            <InputForm label="Data Nascimento" name="birthdate" type="date" register={props.register} showError errorMessage={birthdayError}/>
             <InputForm label="Telefone" name="phone" type="phone" register={props.register} showError errorMessage={phoneError}/>
          </div>
       </>

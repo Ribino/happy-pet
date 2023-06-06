@@ -22,10 +22,10 @@ const createUserFormSchema = object({
    .matches(/[A-Z]/, 'Pelo menos uma letra maiscula')
    .matches(/[a-zA-Z]+[^a-zA-Z\s]+[^0-9]/, 'Pelo menos um caracter especial (@,!,#, etc).'),
    passwordConfirm: string().equals([ref('password')], "Senhas diferentes"),
-   cpf: string().length(14, 'CPF precisa ter 12 números').required('Por favor, preencher o CPF'),
+   cpf: string().length(11, 'CPF precisa ter 12 números').required('Por favor, preencher o CPF'),
    phone: string().required('Por favor, preencher o telefone'),
    birthdate: date().typeError('O campo precisa ser uma data'),
-   cep: string().length(9, "CEP precisa ter 5 números"),
+   cep: string().length(8, "CEP precisa ter 8 números"),
    address: string(),
    district: string()
 })
@@ -52,14 +52,19 @@ export default function FormCreateUser() {
       const res = await fetch(`${process.env.HOST}/client`, {
          method: 'POST',
          headers: {
-            'Access-Control-Allow-Headers': "*"
+            'Accept': '*/*',
+            'Access-Control-Allow-Headers': "*",
+            'Content-Type': "application/json"
          },
-         mode: "cors",
          body: JSON.stringify(data)
       })
 
       if(res.status === 200){ 
          route.push('/signin')
+      }
+      if(res.status === 400) {
+         const json = await res.json() 
+         alert(json.message + ':\n' + json.fields)
       }
       setLoading(false); 
    }
@@ -117,14 +122,14 @@ export default function FormCreateUser() {
                   {
                      step == 4 
                      ?  <Button className="!w-full" type="submit">{
-                        loading
-                        ? <Loading />
+                        true
+                        ? <Loading height={7} width={7}/>
                         : 'Criar Conta'
                      }
                         </Button>
                      :  <Button disabled={disableNextButton()} className="!rounded-full !w-12 !h-12 !p-0" type="button" action={() => !loading && nextStep()}>
                               {loading
-                                 ? <Loading />
+                                 ? <Loading height={7} width={7}/>
                                  : <MdOutlineNavigateNext className="h-full w-full" />}
                         </Button>
                   
@@ -145,6 +150,7 @@ async function alreadyExistsValueOnDataBase(field: string, value: string): Promi
       },
       mode: "cors"
    });
+   
    return res.status === 200;
 }
 
