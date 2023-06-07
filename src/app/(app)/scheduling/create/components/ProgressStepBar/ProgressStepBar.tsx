@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function ProgressStepBar({step}: Props) {
-
+   
    return (
       <>
          <div className="flex flex-row items-center">
