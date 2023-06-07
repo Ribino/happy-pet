@@ -1,9 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "@/app/components/Button";
 import { isEmpty } from "lodash";
 import SelectPet from "./components/SelectPet/SelectPet";
-import WorkInProgress from "@/app/components/WorkInProgress";
 import { useRouter } from "next/navigation";
 import SelectService from "./components/SelectService/SelectService";
 import ProgressStepBar from './components/ProgressStepBar/ProgressStepBar';
@@ -13,6 +12,8 @@ import { Professional } from "./components/SelectDate/ListProfessional";
 import { Service } from "./components/SelectService/ListService";
 import { Pet } from "./components/SelectPet/ListPet";
 import { getToken } from "../../components/Utils";
+import Loading from "@/app/components/Loading";
+import SuccessfullyCreated from "./components/SuccessfullyCreated";
 
 export interface Scheduling {
   pet?: Pet,
@@ -24,8 +25,9 @@ export interface Scheduling {
 
 export default function CreateScheduling() {  
   const route = useRouter()
-  const [step, setStep] = useState(1);
-  const [scheduling, setScheduling] = useState<Scheduling>();
+  const [step, setStep] = useState(1)
+  const [scheduling, setScheduling] = useState<Scheduling>()
+  const isLoading = useRef<boolean>()
  
   function backStep(): void {
     if (step === 1) {
@@ -35,13 +37,14 @@ export default function CreateScheduling() {
   }
 
   async function nextStep() {
+    isLoading.current = true;
     if(step === 4) {
-      if(await createScheduling()) {
-        return route.replace("/scheduling");
+      if(!await createScheduling()) {
+        alert('Aconteceu algum erro ao criar o seu agendamento, por favor, tente mais tarde ou contate o administrador do sistema')
+        return;
       }
-      alert('Erro interno ao criar o agendamento, por favor tente mais tarde')
-      return;
     }
+    isLoading.current = false
     setStep((value) => value + 1);
   }
 
@@ -111,18 +114,33 @@ export default function CreateScheduling() {
           return (
             <ConfirmScheduling scheduling={scheduling!}/>
           );
+      case 5:
+          return (
+            <SuccessfullyCreated />
+          );
       default:
-        return <WorkInProgress />;
+        return <span> Erro ao criar um agendamento, por favor, tente mais tarde </span>;
     }
   }
 
    return (
      <div className="flex flex-col px-52 w-full items-center gap-y-20">
        <ProgressStepBar step={step}/>
-        {renderStep()}
-       <div className="flex gap-4">
+        {isLoading.current
+         ? <Loading />
+         : renderStep() 
+        }
+       <div className={`flex gap-4 ${step === 5 ? 'hidden' : ''}`} >
         <Button secundary action={backStep}> { step == 1 ? 'Cancelar' : '< Voltar' }</Button>
         <Button disabled={disableButton()} action={nextStep}> { step == 4 ? 'Confirmar' : 'Avançar >' } </Button>
+       </div>
+       <div className={`flex justify-center items-center ${step === 5 ? '' : 'hidden'}`}>
+        <Button action={() => {
+            route.push('/scheduling')
+            route.refresh()
+          }}
+          secundary
+          className="text-xl"> Voltar para a listagem de agendamentos </Button>
        </div>
      </div>
    )
