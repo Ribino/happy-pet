@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import Button from "@/app/components/Button";
 import { isEmpty } from "lodash";
 import SelectPet from "./components/SelectPet/SelectPet";
-import WorkInProgress from "@/app/components/WorkInProgress";
 import { useRouter } from "next/navigation";
 import SelectService from "./components/SelectService/SelectService";
 import ProgressStepBar from './components/ProgressStepBar/ProgressStepBar';
@@ -13,10 +12,8 @@ import { Professional } from "./components/SelectDate/ListProfessional";
 import { Service } from "./components/SelectService/ListService";
 import { Pet } from "./components/SelectPet/ListPet";
 import { getToken } from "../../components/Utils";
-import { revalidatePath, revalidateTag } from "next/cache";
 import Loading from "@/app/components/Loading";
 import SuccessfullyCreated from "./components/SuccessfullyCreated";
-import Link from "next/link";
 
 export interface Scheduling {
   pet?: Pet,
@@ -28,7 +25,7 @@ export interface Scheduling {
 
 export default function CreateScheduling() {  
   const route = useRouter()
-  const [step, setStep] = useState(5)
+  const [step, setStep] = useState(1)
   const [scheduling, setScheduling] = useState<Scheduling>()
   const isLoading = useRef<boolean>()
  
