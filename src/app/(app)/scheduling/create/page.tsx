@@ -28,7 +28,7 @@ export interface Scheduling {
 
 export default function CreateScheduling() {  
   const route = useRouter()
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(5)
   const [scheduling, setScheduling] = useState<Scheduling>()
   const isLoading = useRef<boolean>()
  
@@ -137,7 +137,7 @@ export default function CreateScheduling() {
         <Button secundary action={backStep}> { step == 1 ? 'Cancelar' : '< Voltar' }</Button>
         <Button disabled={disableButton()} action={nextStep}> { step == 4 ? 'Confirmar' : 'Avançar >' } </Button>
        </div>
-       <div className={`flex flex-col gap-4 justify-center items-center ${step === 5 ? '' : 'hidden'}`}>
+       <div className={`flex justify-center items-center ${step === 5 ? '' : 'hidden'}`}>
         <Button action={() => {
             route.push('/scheduling')
             route.refresh()

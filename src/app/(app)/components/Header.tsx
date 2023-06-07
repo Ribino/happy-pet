@@ -56,8 +56,8 @@ export default function Header(props: Props) {
         <header  className='bg-teal-700 h-20'>
             <div className="container mx-auto h-full">
               <div className='grid grid-rows-1 grid-cols-4 items-center h-full'>
-                  <Image className='h-3/5 w-3/5 ' src={logo} alt="Logo"/>
-                  <nav className='text-zinc-100 space-x-6 font-medium  hover:[&>*]:text-orange-400 [&>*]:transition-all'>
+                  <Image className='col-start-1 h-3/5 w-3/5 ' src={logo} alt="Logo"/>
+                  <nav className='col-span-2 text-zinc-100 space-x-6 font-medium  hover:[&>*]:text-orange-400 [&>*]:transition-all'>
                     <Link className={checkCurrentRoute(navRoutes.home)} href={navRoutes.home}>Inicio</Link>
                     <Link hidden={!hasAccess(navRoutes.professional)} className={checkCurrentRoute(navRoutes.professional)} href={navRoutes.professional}>Profissionais</Link>
                     <Link hidden={!hasAccess(navRoutes.client)} className={checkCurrentRoute(navRoutes.client)} href={navRoutes.client}>Clientes</Link>
