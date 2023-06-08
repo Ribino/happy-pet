@@ -63,16 +63,13 @@ export default function SelectDate(props: Props) {
                </Column>
             </Row>
          </div>
-         <div className="row-span-4 col-span-1 w-96">
+         <div className="row-span-4 col-span-1 w-96 h-[28rem]">
             <Box headerTitle="Profissionais" emptyMessage="Escolha uma data">
-               <Suspense fallback={<Loading />}>
-                  {/*@ts-ignore*/ }
-                  <ListProfessional 
-                     isProfessionalSelected={isProfessionalSelected} 
-                     onSelected={onSelectedProfessional}
-                     selectedDate={selectedDate}
-                     selectedServiceId={scheduling?.service?.id} />
-               </Suspense>
+               <ListProfessional 
+                  isProfessionalSelected={isProfessionalSelected} 
+                  onSelected={onSelectedProfessional}
+                  selectedDate={selectedDate}
+                  selectedServiceId={scheduling?.service?.id} />
             </Box>
          </div>
       </div>
