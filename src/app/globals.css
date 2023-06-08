@@ -3,3 +3,17 @@
 @tailwind utilities;
 
 
+@layer utilities {
+  .bg-orange-400 {
+    background-color: rgb(244 170 65 / 1);
+  }
+
+  .text-orange-400 {
+    color: rgb(244 170 65)
+  }
+}
+
+
+body {
+  background-color: #F8F9FA;
+}

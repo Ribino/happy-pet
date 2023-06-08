@@ -1,0 +1,114 @@
+.showBackground {
+  height: 100%;
+  background-color: white;
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: 1.5rem;
+  border: 1px solid;
+  border-color: rgb(212 212 216)
+}
+
+.react-calendar {
+  max-width: 100%;
+  min-width: 22rem;
+  line-height: 2.1rem;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding: 1.5rem;
+  color: rgb(82 82 91);
+  display: grid;
+}
+
+.react-calendar__navigation {
+  color: rgb(244 170 65 / 1);
+  display: flex;
+  justify-content: center;
+  transition-duration: 200ms;
+}
+
+.react-calendar [disabled] {
+  color: rgb(125 125 125 / 0.5);
+}
+
+.react-calendar__navigation__arrow .navigate_icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.react-calendar__navigation__arrow:enabled:hover .navigate_icon {
+  height: 2rem;
+  width: 2rem;
+  transition-duration: 200ms;
+}
+
+.react-calendar__navigation__label:enabled:hover {
+  color: rgb(249 115 22 / 1);
+  transition-duration: 200ms;
+  font-size: large;
+}
+
+.react-calendar__navigation [disabled] {
+  color: rgb(244 170 65 / 0.5);
+}
+
+abbr[title] {
+  text-decoration: none;
+}
+
+.react-calendar__month-view__weekdays {
+   color: rgb(244 170 65 / 1);
+   text-align: center;
+   text-transform: uppercase;
+   font-size: 0.65rem;
+   font-weight: bold;
+}
+
+.react-calendar__month-view__days__day:enabled:hover abbr{
+  background: rgb(244 170 65 / 0.9);
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+  transition-duration: 100ms;
+}
+
+.react-calendar__year-view__months__month:enabled:hover, 
+.react-calendar__decade-view__years__year:enabled:hover,
+.react-calendar__century-view__decades__decade:enabled:hover {
+  border-radius: 0.75rem;
+  background: rgb(244 170 65 / 1);
+  color:rgb(255, 255, 255);
+  transition-duration: 100ms;
+}
+
+.react-calendar__tile--now{
+  color: rgb(251 146 60 / 1);
+}
+
+.react-calendar__tile--hasActive:enabled:hover {
+  background: rgb(244 170 65 / 1);
+}
+
+.hightlightDate abbr{
+  border: 1px solid !important;
+  border-color: rgb(244 170 65 / 1) !important;
+  border-radius: 50%;
+
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: rgb(244 170 65 / 0.6)
+}
+
+abbr {
+  width: 33px !important;
+  height: 33px !important;
+  display: inline-block;
+}
+
+.selectedDate abbr {
+  background-color: rgb(251 146 60) !important;
+  border-radius: 50%;
+  color: white;
+  transition-duration: 100ms
+}
