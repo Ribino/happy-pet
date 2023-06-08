@@ -8,7 +8,7 @@ export default function Pets() {
     <main className="w-full h-full">
     <div className="flex flex-col px-52 gap-y-4 items-end w-full h-full">
       <Button> Cadastrar </Button>
-      <Box className="w-full !h-4/5" headerTitle="Pet" emptyMessage="Clique em cadastrar para adicionar seu primeiro Pet"/>
+      <Box className="w-full !h-4/5" headerTitle="Pets" emptyMessage="Clique em cadastrar para adicionar seu primeiro Pet"/>
     </div>
         
     </main>
