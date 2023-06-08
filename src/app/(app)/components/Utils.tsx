@@ -1,9 +1,11 @@
 'use client'
 import { UserPayload } from "@/app/(app)/layout";
 import { isEmpty } from "lodash";
-import { parseCookies } from "nookies";
+import { parseCookies, destroyCookie } from "nookies";
 import { useState } from "react";
 import jwt from 'jwt-decode';
+import { redirect } from "next/navigation";
+import { RedirectType } from "next/dist/client/components/redirect";
 
 export function ForceUpdate() {
    const [value, setValue] = useState(0);
@@ -24,4 +26,8 @@ export function decodeToken(): { user: UserPayload; token: string; } | undefined
   const user = jwt<UserPayload>(token)
 
   return { user , token }
+}
+
+export function destroyToken() {
+  destroyCookie(null, 'happy-pet.token')
 }

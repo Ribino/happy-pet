@@ -9,7 +9,6 @@ import Loading from "@/app/components/Loading";
 export default function SignIn() {
    
    const token = cookies().get('happy-pet.token')?.value
-
    if (!isEmpty(token)) {
       return redirect('/')
    }

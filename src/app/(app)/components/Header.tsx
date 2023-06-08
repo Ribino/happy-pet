@@ -1,10 +1,12 @@
 'use client'
 import Image from 'next/image';
 import logo from '../../images/happy-pet-logo-align-left.jpg';
-import {MdOutlineExpandMore } from 'react-icons/md';
+import {MdOutlineExpandMore, MdOutlineExpandLess } from 'react-icons/md';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
+import { destroyToken } from './Utils';
+import { useState } from 'react';
 
 const navRoutes  = {
   home: "/",
@@ -25,6 +27,8 @@ export default function Header(props: Props) {
     const {userName, type, pathImage} = props
     const shouldDisplayUserImage = !isEmpty(props.pathImage);
     const currentPath = usePathname()
+    const route = useRouter()
+    const [expandUserOptions, setExpandUserOption] = useState(false);
   
     function checkCurrentRoute(path: string): string {
        if(path === currentPath) return 'text-orange-400/100 font-semibold';
@@ -51,6 +55,11 @@ export default function Header(props: Props) {
       return false;
     }
 
+    function signoff() {
+      destroyToken()
+      route.refresh()
+    }
+
     return (
         <>
         <header  className='bg-teal-700 h-20'>
@@ -62,8 +71,8 @@ export default function Header(props: Props) {
                     <Link hidden={!hasAccess(navRoutes.professional)} className={checkCurrentRoute(navRoutes.professional)} href={navRoutes.professional}>Profissionais</Link>
                     <Link hidden={!hasAccess(navRoutes.client)} className={checkCurrentRoute(navRoutes.client)} href={navRoutes.client}>Clientes</Link>
                     <Link hidden={!hasAccess(navRoutes.service)} className={checkCurrentRoute(navRoutes.service)} href={navRoutes.service}>Serviços</Link>
-                    <Link hidden={!hasAccess(navRoutes.scheduling)} className={checkCurrentRoute(navRoutes.scheduling)} href={navRoutes.scheduling}>Agendamentos</Link>
                     <Link hidden={!hasAccess(navRoutes.pets)} className={checkCurrentRoute(navRoutes.pets)} href={navRoutes.pets}>Meus Pets</Link>
+                    <Link hidden={!hasAccess(navRoutes.scheduling)} className={checkCurrentRoute(navRoutes.scheduling)} href={navRoutes.scheduling}>Agendamentos</Link>
                   </nav>
                   
                   <div className='col-start-4 justify-end flex items-center space-x-2 text-zinc-100'> 
@@ -77,9 +86,22 @@ export default function Header(props: Props) {
                       }
                     </div>
                     <span>Olá, {props.userName}</span>
-                    <button className="flex w-10 text-2xl" type="button">
-                      <MdOutlineExpandMore/>
-                    </button>
+                    <div className='transition-all'>
+                      <button className={`flex text-2xl ${expandUserOptions ? "bg-white text-teal-700 border-x border-zinc-400 rounded-t-md" : ""}`} 
+                              type="button" onClick={() => setExpandUserOption((value) => !value)}>
+                        {
+                          expandUserOptions  
+                          ? <MdOutlineExpandLess/>
+                          : <MdOutlineExpandMore/>
+                        } 
+                      </button>
+                      <div className={`fixed w-28 overflow-hidden ${expandUserOptions ? "block" : "hidden"} bg-white border border-t-0 border-zinc-400 rounded-b-md `}>
+                        <ul className='text-zinc-900 italic [&>*]:p-1'>
+                          <li className='hover:bg-zinc-200'><a className="cursor-pointer" onClick={() => signoff()}>Sair</a></li>
+                        </ul>
+                      </div>
+                    
+                    </div>
                   </div>
               </div>
             </div>
