@@ -1,9 +1,11 @@
 import Column from "@/app/(app)/components/Column";
 import Field from "@/app/(app)/components/Field";
 import SelectRow from "@/app/(app)/components/Row/SelectRow";
-import { isEmpty, isUndefined } from "lodash";
+import { isEmpty, isUndefined, update } from "lodash";
 import { useRef } from "react";
-import { getToken } from "../../../../components/Utils";
+import { ForceUpdate, getToken } from "../../../../components/Utils";
+import Loading from "@/app/components/Loading";
+import useSWR from 'swr'
 
 interface Props {
    onSelected: (professional: Professional) => void,
@@ -19,54 +21,76 @@ export interface Professional {
    availableHour: number
 }
 
-export default async function ListProfessional(props: Props) {
+function useProfessional(serviceId: Number | undefined, selectedDate: Date | undefined) {
+   const token = getToken();
+   const shouldFetch = !(isUndefined(serviceId) || isUndefined(selectedDate) || isEmpty(token))
+   const { data, error, isLoading} = useSWR(shouldFetch ? `${process.env.HOST}/professional/available?serviceId=${serviceId}&date=${selectedDate.toISOString()}` : null, 
+      (url: string) => fetch(url, {
+         method: "GET",
+         headers: {
+         Authorization: `Bearer ${token}`
+         }
+      }).then(res => res.json()) 
+   )
+
+   return {
+      professionalJson: data,
+      isLoading,
+      error
+   }
+}
+
+export default function ListProfessional(props: Props) {
    const { onSelected, isProfessionalSelected, selectedDate, selectedServiceId } = props
-   const emptyMessage = isUndefined(selectedDate) ? 'Escolha uma data' : 'Não há profissionais disponíveis para este dia'
-   const professionals = useRef<Professional[]>();
+   const { professionalJson, error, isLoading} =  useProfessional(selectedServiceId, selectedDate)
 
-   if (!isUndefined(selectedDate)) {
-      await getProfessionalsByServiceAndDate();
+   if(isUndefined(selectedDate)) {
+      return (
+         <div className="h-full flex justify-center items-center italic text-neutral-600 text-sm">
+            Escolha uma data
+         </div>
+      )
    }
 
-   function parseResponseJsonToViewList(professionalsAvailableJson: any): Professional[] {
-      let professionals: Professional[] = new Array();
-      for(let professionalAvailable of professionalsAvailableJson) {
-         for(let hour of professionalAvailable.hours) {
-            const professional: Professional = {
-               id: professionalAvailable.id,
-               availableHour: hour,
-               name: professionalAvailable.user.name,
-               pathImage: professionalAvailable.user.imagePath
-            }
-            professionals.push(professional)
-         }
-      }
-      return professionals
+   if(isLoading) {
+      return (<Loading />)
    }
 
-   async function getProfessionalsByServiceAndDate() {
-      const token = getToken();
-      if (!isEmpty(token)) {
-         const res = await fetch(`${process.env.HOST}/professional/available?serviceId=${selectedServiceId}&date=${selectedDate?.toISOString()}`, {
-            method: "GET",
-            headers: {
-               Authorization: `Bearer ${token}`
-            }
-         })
-      
-         if(res.ok) {
-            professionals.current = parseResponseJsonToViewList(await res.json())
+   if(!isEmpty(error)) {
+      return (
+         <div className="h-full flex justify-center items-center italic text-neutral-600 text-sm">
+            {error}
+         </div>
+      )
+   }
+
+   let professionals: Professional[] = new Array();
+   for(let professionalAvailable of professionalJson) {
+      for(let hour of professionalAvailable.hours) {
+         const professional: Professional = {
+            id: professionalAvailable.id,
+            availableHour: hour,
+            name: professionalAvailable.user.name,
+            pathImage: professionalAvailable.user.imagePath
          }
+         professionals.push(professional)
       }
+   }
+
+   if(isEmpty(professionals)) {
+      return (
+         <div className="h-full flex justify-center items-center italic text-neutral-600 text-sm">
+               Não há profissionais disponíveis para este dia
+         </div>
+      )
    }
 
    return( 
    <>
       {
-         !isEmpty(professionals.current)
-         ? professionals.current!.map((professional) => 
+         professionals.map((professional, index) => 
             <SelectRow 
-               key={professional.id}
+               key={index}
                onSelected={() => onSelected(professional)} 
                selected={isProfessionalSelected(professional)}>
                <Column applyHighlite flexType="flex-none">
@@ -76,10 +100,7 @@ export default async function ListProfessional(props: Props) {
                   <Field type="profile" value={professional.name} pathImage={professional.pathImage} />
                </Column>
             </SelectRow>
-      )
-         :  <div className="h-full flex justify-center items-center italic text-neutral-600 text-sm">
-               {emptyMessage}
-            </div>
+         )
       }
    </>
 )}

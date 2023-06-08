@@ -65,9 +65,11 @@ export default function CreateScheduling() {
         method: "POST",
         headers: {
            "Authorization": `Bearer ${token}`,
-           "Content-Type": "application/json" 
+           "Content-Type": "application/json",
+           "Accept": "*/*"
         },
-        body: JSON.stringify(createScheduling)
+        body: JSON.stringify(createScheduling),
+        mode: 'cors'
       })
      
       return res.ok

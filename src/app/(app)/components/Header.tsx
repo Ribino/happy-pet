@@ -71,7 +71,7 @@ export default function Header(props: Props) {
                       {
                        shouldDisplayUserImage ?  
                           <Image className=" rounded-full w-14 h-14" src={`/${pathImage}`} alt="Profile" width={56} height={56}/>
-                        : <div className='w-14 h-14 flex items-center justify-center bg-orange-400 rounded-full'>
+                        : <div className='w-12 h-12 flex items-center justify-center bg-orange-400 rounded-full'>
                             <span className='font-medium text-3xl'>{userName.slice(0, 1).toUpperCase()}</span>
                           </div>
                       }
